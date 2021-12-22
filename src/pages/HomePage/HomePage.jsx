@@ -4,6 +4,7 @@ import EarphoneImg from "../../res/img/EarphoneImg.png";
 import TWSImg from "../../res/img/TWSImg.png";
 import HeadphoneImg from "../../res/img/HeadphoneImg.png";
 import Button from "@mui/material/Button";
+import {useNavigate} from 'react-router-dom'
 import TrustPointContainer from '../../components/TrustPointContainer/TrustPointContainer'
 import {
     HomePageContainer,
@@ -27,6 +28,7 @@ import SponsorSwiper from "../../components/SponsorSwiper/SponsorSwiper";
 import ProductBanner from "../../components/ProductBanner/ProductBanner";
 
 export default function HomePage() {
+    const navigate = useNavigate()
     return (
         <>
             <HomePageContainer>
@@ -54,14 +56,18 @@ export default function HomePage() {
                     <EarphoneCard>
                         <div className="Subheading">Enjoy</div>
                         <div className="Heading">EARPHONE</div>
-                        <Button variant="contained">Browse</Button>
+                        <Button onClick={() => {
+                                navigate("/category/earphone")
+                            }}  variant="contained">Browse</Button>
                         <img src={EarphoneImg} alt="" />
                     </EarphoneCard>
                     <TWSCard>
                         <div className="Subheading">New</div>
                         <div className="Heading">TWS</div>
                         <img src={TWSImg} alt="" />
-                        <Button variant="contained" color="secondary">Browse</Button>
+                        <Button onClick={() => {
+                                navigate("/category/tws")
+                            }}  variant="contained" color="secondary">Browse</Button>
                     </TWSCard>
                     <HeadphoneCard>
                         <div className="Subheading">Limited Edition</div>
@@ -69,7 +75,9 @@ export default function HomePage() {
                         <div className="Description">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis, le
                         </div>
-                        <Button variant="contained">Browse</Button>
+                        <Button onClick={() => {
+                                navigate("/category/headphone")
+                            }} variant="contained">Browse</Button>
                         <img src={HeadphoneImg} alt="" />
                     </HeadphoneCard>
                 </HeadingContainer>

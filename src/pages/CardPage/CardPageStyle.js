@@ -1,0 +1,145 @@
+import styled from 'styled-components'
+import {Variables} from '../../variables/variables'
+
+export const CardPageContainer = styled.div`
+width: 100%;
+
+`
+export const MainContainer = styled.div`
+display: flex;
+
+`
+export const ProductListContainer = styled.div`
+width: 70%;
+display: flex;
+flex-direction: column;
+row-gap: 20px;
+`
+export const Product = styled.div`
+height: 246px;
+width: 100%;
+max-width: 630px;
+border-radius: 24px;
+background-color: ${Variables.BackgroundGray};
+display: flex;
+padding: 15px;
+column-gap: 4%;
+.RightSide {
+    width: 49%;
+    height: 100%;
+    background-color: white;
+    border-radius: 12px;
+}
+.LeftSide {
+    width: 47%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .DetailsContainer {
+        .Title {
+                margin-top: 10px;
+                font-size: ${Variables.Title_2};
+                line-height: ${Variables.Title_2};
+                font-weight: ${Variables.R_Medium};
+            }
+            .PriceContainer {
+                display: flex;
+                margin-top: 10px;
+                align-items: flex-end;
+                column-gap: 7px;
+                .CurrentPrice {
+                    font-size: ${Variables.Title_3};
+                    font-weight: ${Variables.R_Bold};
+                }
+                .OriginalPrice {
+                    font-size: ${Variables.Body_1};
+                    text-decoration-line: line-through;
+                    color: ${Variables.TextColorGray};
+                }
+                .Discount {
+                    font-size: ${Variables.Body_1};
+                    color: ${Variables.PrimaryColor};
+                    font-weight: ${Variables.R_Medium};
+                }
+            }
+            .RatingsContainer {
+                width: fit-content;
+                background-color: ${Variables.PrimaryColor};
+                color: ${Variables.TextColorWhite};
+                font-size: ${Variables.Body_2};
+                padding: 3px 5px 3px 7px;
+                display: flex;
+                align-items: center;
+                border-radius: 10px;
+                margin-top: 12px;
+                svg {
+                    margin-left: 3px;
+                }
+            }
+    }
+    .Controller {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        padding: 0px 10px;
+        .Quantity {
+            padding: 12px 25px 10px 25px;
+            border-radius: 7px;
+            background-color: white;
+        }
+    }
+}
+`
+export const PriceDetailsContainer = styled.div`
+width: 30%;
+`
+export const PriceDetails = styled.div`
+/* height: 300px; */
+width: 300px;
+margin-left: auto;
+position: sticky;
+top: 150px;
+background-color: white;
+border-radius: 24px;
+padding: 20px;
+&::before {
+    content: "";
+    background-color: rgb(245,245,245);
+    height: 2px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 60px;
+} 
+.MainTitle {
+    width: 100%;
+    font-size: ${Variables.Title_3};
+    color: ${Variables.TextColorGray};
+    text-align: center;
+    margin-bottom: 50px;
+}
+.TotalPriceContainer {
+    display: flex;
+    justify-content: space-between;
+    .Title {
+        /* font-size: ${Variables.Body_1}; */
+        color: ${Variables.TextColorBlack};
+    margin-bottom: 40px;
+
+    }
+}
+.DeliveryChargeContainer {
+    display: flex;
+    justify-content: space-between;
+    .Title {
+        /* font-size: ${Variables.Body_1}; */
+        color: ${Variables.TextColorBlack};
+    margin-bottom: 40px;
+
+    }
+    .Amount {
+        color: ${Variables.PrimaryColor};
+    }
+}
+`

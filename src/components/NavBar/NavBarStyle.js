@@ -37,7 +37,7 @@ export const NavLinkLeft = styled.div`
     align-items: center;
 `;
 
-export const NavLink = styled.a`
+export const NavItem = styled.div`
     color: ${Variables.TextColorGray};
     font-size: 16px;
     transition: 200ms;

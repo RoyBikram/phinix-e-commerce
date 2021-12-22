@@ -4,11 +4,13 @@ import { ProductCardContainer, Thumbnail } from "./ProductCardStyle";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import StarIcon from "@mui/icons-material/Star";
+import {Link,useParams} from 'react-router-dom'
 
 export default function ProductCard() {
+
     return (
         <ProductCardContainer>
-            <div className="MainContainer">
+            <Link to="/anyid" className="MainContainer">
                 <div className="ThumbnailContainer">
                     <Thumbnail
                         url={
@@ -32,7 +34,7 @@ export default function ProductCard() {
                         Free Delivery
                     </div>
                 </div>
-            </div>
+            </Link>
             <ButtonGroup
                 sx={{
                     boxShadow: "none",

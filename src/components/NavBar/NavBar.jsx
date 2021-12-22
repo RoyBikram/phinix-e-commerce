@@ -5,31 +5,55 @@ import {
     NavLinkContainer,
     NavLinkLeft,
     NavLinkRight,
-    NavLink,
+    NavItem,
 } from "./NavBarStyle";
 import Avatar from "@mui/material/Avatar";
+import { Link, NavLink } from "react-router-dom";
 import { ReactComponent as CardIcon } from "../../res/icons/Card.svg";
 
 export default function NavBar() {
     return (
         <>
             <NavBarContainer>
-                <NavLogo>PHINIX</NavLogo>
+                <NavLink to="/">
+                    <NavLogo>PHINIX</NavLogo>
+                </NavLink>
+
                 <NavLinkContainer>
                     <NavLinkLeft>
-                        <NavLink>Home</NavLink>
-                        <NavLink>Store</NavLink>
-                        <NavLink>About</NavLink>
-                        <NavLink>Contact</NavLink>
+                        <NavLink to="/">
+                            <NavItem>Home</NavItem>
+                        </NavLink>
+
+                        <NavItem>Store</NavItem>
+                        <NavItem>About</NavItem>
+                        <NavItem>Contact</NavItem>
                     </NavLinkLeft>
                     <NavLinkRight>
-                        <NavLink>Login</NavLink>
-                        <NavLink>|</NavLink>
-                        <NavLink>Sign In</NavLink>
-                        <NavLink>
-                            <CardIcon></CardIcon>
+                        <NavLink to="/auth/login">
+                            <NavItem>Login</NavItem>
                         </NavLink>
-                        <Avatar sx={{ width: 30, height: 30, backgroundColor:"#ff9696", fontSize:"1rem", cursor:'pointer' }}>R</Avatar>
+                        <NavItem>|</NavItem>
+                        <NavLink to="/auth/signup">
+                            <NavItem>Sign Up</NavItem>
+                        </NavLink>
+                        <NavLink to="/card">
+                            <NavItem>
+                                <CardIcon></CardIcon>
+                            </NavItem>
+                        </NavLink>
+
+                        <Avatar
+                            sx={{
+                                width: 30,
+                                height: 30,
+                                backgroundColor: "#ff9696",
+                                fontSize: "1rem",
+                                cursor: "pointer",
+                            }}
+                        >
+                            R
+                        </Avatar>
                     </NavLinkRight>
                 </NavLinkContainer>
             </NavBarContainer>
