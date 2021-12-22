@@ -15,5 +15,8 @@ export const GridContainer = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 10%;
+    input {
+        padding: 14px 12px;
+    }
     /* margin: 0px auto; */
 `

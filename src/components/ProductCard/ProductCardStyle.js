@@ -21,6 +21,7 @@ export const ProductCardContainer = styled.div`
         }
         .DescriptionContainer {
             padding: 10px;
+            color: ${Variables.TextColorBlack};
             .Title {
                 margin-top: 10px;
                 font-size: ${Variables.Title_2};

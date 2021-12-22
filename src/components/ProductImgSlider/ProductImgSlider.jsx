@@ -5,15 +5,15 @@ export default function ProductImgSlider() {
     const images = [
         {
             id: 1,
-            url: `https://picsum.photos/1000?random=1`,
+            url: `https://rukminim1.flixcart.com/image/416/416/kiow6fk0-0/headphone/n/5/h/mxya2zm-a-beats-original-imafyfkytruddaav.jpeg?q=70`,
         },
         {
             id: 2,
-            url: `https://picsum.photos/1000?random=2`,
+            url: `https://rukminim1.flixcart.com/image/416/416/kiow6fk0-0/headphone/r/1/a/mxya2zm-a-beats-original-imafyfkyenp6degz.jpeg?q=70`,
         },
         {
             id: 3,
-            url: `https://picsum.photos/1000?random=3`,
+            url: `https://rukminim1.flixcart.com/image/416/416/kiow6fk0-0/headphone/0/c/z/mxya2zm-a-beats-original-imafyfkyj9yvffrf.jpeg?q=70`,
         },
     ];
 
@@ -31,7 +31,7 @@ export default function ProductImgSlider() {
             setSelectedImageIndex(0);
             setSelectedImage(images[0]);
         }
-    },[images.length]);
+    }, [images.length]);
 
     const handleSelectedImageChange = (newIdx) => {
         if (images && images.length > 0) {
@@ -41,10 +41,12 @@ export default function ProductImgSlider() {
     };
     return (
         <ProductImgSliderContainer>
-            <div
-                className="selected-image"
-                style={{ backgroundImage: `url(${selectedImage?.url})` }}
-            />
+            <div className="selected-image">
+                <div
+                    className="ImgContainer"
+                    style={{ backgroundImage: `url(${selectedImage?.url})` }}
+                />
+            </div>
             <div className="carousel">
                 <div className="carousel__images">
                     {images &&
@@ -53,7 +55,7 @@ export default function ProductImgSlider() {
                                 onClick={() => {
                                     handleSelectedImageChange(idx);
                                 }}
-                                style={{ backgroundImage: `url(${image.url})` }}
+                                
                                 key={image.id}
                                 className={`carousel__image ${
                                     selectedImageIndex === idx &&
@@ -62,7 +64,9 @@ export default function ProductImgSlider() {
                                 ref={(el) =>
                                     (carouselItemsRef.current[idx] = el)
                                 }
-                            />
+                            >
+                                <div className="ImgContainer" style={{ backgroundImage: `url(${image.url})` }}/>
+                            </div>
                         ))}
                 </div>
             </div>

@@ -7,16 +7,20 @@ export const ProductImgSliderContainer = styled.div`
 /* .carousel-container {
 } */
 
-.selected-image {
+.ImgContainer {
+  height: 100%;
   width: 100%;
-  margin-bottom: 8px;
   background-position: center center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
+}
+.selected-image {
+  margin-bottom: 15px;
   border-radius: 24px;
-  height: 450px;
-  width: 450px;
-
+  height: 400px;
+  width: 400px;
+  padding: 30px;
+  background-color: white;
 }
 
 .carousel {
@@ -39,12 +43,13 @@ export const ProductImgSliderContainer = styled.div`
   height: 90px;
   width: 90px;
   border: 3px solid #e1e1e1;
-  background-position: center center;
+  /* background-position: center center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; */
   border-radius: 12px;
   overflow: hidden;
-
+  background-color: white;
+  padding: 7px;
 }
 
 `

@@ -3,10 +3,14 @@ import { AddressPageContainer, GridContainer } from "./AddressPageStyle";
 import Heading from "../../components/Heading/Heading";
 import InputField from "../../components/InputField/InputField";
 import Button from "@mui/material/Button";
-import {UploadData} from '../../firebase/Firebase'
+import {useNavigate} from 'react-router-dom'
 
 export default function AddressPage() {
+    const navigate = useNavigate()
 
+    const HandelButtonClick = () => {
+        navigate("/confirm_order")
+    }
     
     return (
         <AddressPageContainer>
@@ -54,6 +58,7 @@ export default function AddressPage() {
                 />
             </GridContainer>
             <Button
+                onClick={HandelButtonClick}
                 variant="contained"
                 sx={{
                     width: "300px",

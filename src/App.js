@@ -12,6 +12,7 @@ import ProductListPage from "./pages/ProductListPage/ProductListPage";
 import ProductDetailPage from "./pages/ProductDetailPage/ProductDetailPage";
 import CardPage from './pages/CardPage/CardPage';
 import AddressPage from './pages/AddressPage/AddressPage'
+import ConfirmOrderPage from './pages/ConfirmOrderPage/ConfirmOrderPage'
 
 import { Routes, Route } from "react-router-dom";
 
@@ -35,6 +36,7 @@ function App() {
                     <Route path=":productid" element={<ProductDetailPage />} />
                     <Route path="/card" element={<CardPage/>}></Route>
                     <Route path="/shipping_address" element={<AddressPage/>}/>
+                    <Route path="/confirm_order" element={<ConfirmOrderPage/>}/>
                 </Routes>
                 <div className="Spacer"></div>
                 <Footer></Footer>

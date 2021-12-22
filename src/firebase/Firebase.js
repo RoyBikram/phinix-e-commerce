@@ -36,7 +36,7 @@ export const UploadData = async () => {
             console.log(doc.id);
             const docRef = doc(db, `ProductsData/${docdata.id}`);
             await updateDoc(docRef, {
-                uid:docdata.id
+                uid: docdata.id,
             });
         });
     });
@@ -51,5 +51,4 @@ export const UploadData = async () => {
     //     features:element.features
     //   });
     //   });
-
 };

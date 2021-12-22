@@ -142,5 +142,5 @@ export const ImageContainer = styled.div`
     width: 50%;
     display: flex;
     justify-content: center;
-    padding-top: 70px;
+    padding-top: 100px;
 `;
