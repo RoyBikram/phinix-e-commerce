@@ -1,10 +1,43 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Link } from "react-router-dom";
 import { SignUpPageContainer,MainContent,ImageContainer } from './SignUpPageStyle'
 import { ReactComponent as GoogleIcon } from "../../../res/icons/google.svg";
 import Button from "@mui/material/Button";
 import InputField from "../../../components/InputField/InputField";
+import { AuthWithGoogle } from '../../../firebase/Firebase'
+import { useDispatch,useSelector } from "react-redux";
+import { setUser } from "../../../redux/UserReducer/UserReducer";
+import {useNavigate} from 'react-router-dom'
+
+
 export default function SignUpPage() {
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.User.UserData)
+    const navigate = useNavigate()
+
+
+    useEffect(() => {
+        if (user) {
+            navigate("/")  
+        }
+    }, [user,navigate])
+
+
+    const HandelSignUpWithGoogle = async () => {
+        let AuthUser = await AuthWithGoogle()
+        if (AuthUser) {
+            dispatch(
+                setUser({
+                    name: AuthUser?.displayName,
+                    email: AuthUser?.email,
+                    photoUrl: AuthUser?.photoURL,
+                    uid:AuthUser?.uid
+                })
+            );
+        }
+    }
+
+
     return (
         <SignUpPageContainer>
             <ImageContainer></ImageContainer>
@@ -16,6 +49,7 @@ export default function SignUpPage() {
                             One Step Away To Your Product.
                         </div>
                         <Button
+                            onClick={HandelSignUpWithGoogle}
                             className="SignUpWithGoogle"
                             variant="contained"
                             color="secondary"

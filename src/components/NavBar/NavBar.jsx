@@ -8,10 +8,29 @@ import {
     NavItem,
 } from "./NavBarStyle";
 import Avatar from "@mui/material/Avatar";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { ReactComponent as CardIcon } from "../../res/icons/Card.svg";
+import { useSelector, useDispatch } from "react-redux";
+import Button from "@mui/material/Button";
+import { auth } from "../../firebase/Firebase";
+import { signOut } from "firebase/auth";
+import { setUser } from "../../redux/UserReducer/UserReducer";
+import Badge from "@mui/material/Badge";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import IconButton from '@mui/material/IconButton';
 
 export default function NavBar() {
+    const dispatch = useDispatch();
+    let user = useSelector((state) => state.User.UserData);
+
+    const HandelLogoutButtonClick = () => {
+        signOut(auth)
+            .then(() => {
+                dispatch(setUser(null));
+            })
+            .catch((error) => {});
+    };
+
     return (
         <>
             <NavBarContainer>
@@ -30,30 +49,57 @@ export default function NavBar() {
                         <NavItem>Contact</NavItem>
                     </NavLinkLeft>
                     <NavLinkRight>
-                        <NavLink to="/auth/login">
-                            <NavItem>Login</NavItem>
-                        </NavLink>
-                        <NavItem>|</NavItem>
-                        <NavLink to="/auth/signup">
-                            <NavItem>Sign Up</NavItem>
-                        </NavLink>
-                        <NavLink to="/card">
-                            <NavItem>
-                                <CardIcon></CardIcon>
-                            </NavItem>
-                        </NavLink>
+                        {!user ? (
+                            <>
+                                <NavLink to="/auth/login">
+                                    <NavItem>Login</NavItem>
+                                </NavLink>
+                                <NavItem>|</NavItem>
+                                <NavLink to="/auth/signup">
+                                    <NavItem>Sign Up</NavItem>
+                                </NavLink>
+                            </>
+                        ) : (
+                            <Button
+                                onClick={HandelLogoutButtonClick}
+                                sx={{
+                                    padding: "7px 14px",
+                                    boxShadow: "none",
+                                    ":hover": {
+                                        boxShadow: "none",
+                                    },
+                                }}
+                                variant="text"
+                            >
+                                <NavItem>LogOut</NavItem>
+                            </Button>
+                        )}
 
-                        <Avatar
-                            sx={{
-                                width: 30,
-                                height: 30,
-                                backgroundColor: "#ff9696",
-                                fontSize: "1rem",
-                                cursor: "pointer",
-                            }}
-                        >
-                            R
-                        </Avatar>
+                        <NavLink to="/card">
+                            <IconButton aria-label="cart">
+                                <Badge badgeContent={0} color="warning">
+                                    <ShoppingCartIcon />
+                                </Badge>
+                            </IconButton>
+                            {/* <NavItem>
+                                <CardIcon></CardIcon>
+                            </NavItem> */}
+                        </NavLink>
+                        {user ? (
+                            <Avatar
+                                sx={{
+                                    width: 30,
+                                    height: 30,
+                                    backgroundColor: "#ff9696",
+                                    fontSize: "1rem",
+                                    cursor: "pointer",
+                                }}
+                            >
+                                R
+                            </Avatar>
+                        ) : (
+                            ""
+                        )}
                     </NavLinkRight>
                 </NavLinkContainer>
             </NavBarContainer>

@@ -1,6 +1,5 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import {
     doc,
     getFirestore,
@@ -8,11 +7,8 @@ import {
     updateDoc,
     onSnapshot,
 } from "firebase/firestore";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAuth, signInWithPopup, GoogleAuthProvider} from "firebase/auth";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
     apiKey: "AIzaSyCUM5A_g__8iGunnWKMRlwnEO7oznytuFo",
     authDomain: "e-commerce-f5615.firebaseapp.com",
@@ -24,14 +20,37 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+initializeApp(firebaseConfig);
 export const db = getFirestore();
+
+const provider = new GoogleAuthProvider();
+export const auth = getAuth();
+
+// Dispatch Function for redux
+
+
+export const AuthWithGoogle = async () => {
+    let user = null
+    await signInWithPopup(auth, provider)
+        .then((result) => {
+            user = result.user;
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(`Some Error : ${errorCode}/${errorMessage}`);
+        });
+    return user
+};
+
+export const LogOutUser = (params) => {
+
+}
 
 export const UploadData = async () => {
     const q = collection(db, "ProductsData");
 
-    const UnsubscribeFromSearchData = onSnapshot(q, (querySnapshot) => {
+    onSnapshot(q, (querySnapshot) => {
         querySnapshot.forEach(async (docdata) => {
             console.log(doc.id);
             const docRef = doc(db, `ProductsData/${docdata.id}`);

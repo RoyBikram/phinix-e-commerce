@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { Variables } from '../../variables/variables'
 
 export const AddressPageContainer = styled.div`
 display: flex;

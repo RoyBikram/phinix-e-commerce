@@ -10,13 +10,39 @@ import SignUpPage from "./pages/AuthPage/SignUpPage/SignUpPage";
 import CategoryPage from "./pages/CategoryPage/CategoryPage";
 import ProductListPage from "./pages/ProductListPage/ProductListPage";
 import ProductDetailPage from "./pages/ProductDetailPage/ProductDetailPage";
-import CardPage from './pages/CardPage/CardPage';
-import AddressPage from './pages/AddressPage/AddressPage'
-import ConfirmOrderPage from './pages/ConfirmOrderPage/ConfirmOrderPage'
+import CardPage from "./pages/CardPage/CardPage";
+import AddressPage from "./pages/AddressPage/AddressPage";
+import ConfirmOrderPage from "./pages/ConfirmOrderPage/ConfirmOrderPage";
 
 import { Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { auth } from "./firebase/Firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "./redux/UserReducer/UserReducer";
 
 function App() {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const unSubscribeFromUserData = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                dispatch(
+                    setUser({
+                        name: user.displayName,
+                        email: user.email,
+                        photoUrl: user.photoURL,
+                        uid:user.uid
+                    })
+                );
+            } else {
+            }
+        });
+        return () => {
+            unSubscribeFromUserData();
+        };
+    }, []);
+
     return (
         <ThemeProvider theme={theme}>
             <div className="App">
@@ -34,9 +60,12 @@ function App() {
                         ></Route>
                     </Route>
                     <Route path=":productid" element={<ProductDetailPage />} />
-                    <Route path="/card" element={<CardPage/>}></Route>
-                    <Route path="/shipping_address" element={<AddressPage/>}/>
-                    <Route path="/confirm_order" element={<ConfirmOrderPage/>}/>
+                    <Route path="/card" element={<CardPage />}></Route>
+                    <Route path="/shipping_address" element={<AddressPage />} />
+                    <Route
+                        path="/confirm_order"
+                        element={<ConfirmOrderPage />}
+                    />
                 </Routes>
                 <div className="Spacer"></div>
                 <Footer></Footer>

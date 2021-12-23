@@ -4,7 +4,7 @@ import { ProductCardContainer, Thumbnail } from "./ProductCardStyle";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import StarIcon from "@mui/icons-material/Star";
-import {Link,useParams} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 export default function ProductCard() {
 
