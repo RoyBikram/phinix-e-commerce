@@ -46,8 +46,6 @@ export const AuthWithGoogle = async () => {
     return user;
 };
 
-export const LogOutUser = (params) => {};
-
 export const UploadData = async () => {
     const q = collection(db, "ProductsData");
 
@@ -93,7 +91,8 @@ export const GetProductDataFromUid = async (uid) => {
             .then((url) => {
                 Images.push(url);
             })
-            .catch((error) => {});
+            .catch((error) => {
+            });
         if (i === 3) {
             if (docSnap.exists()) {
                 ProductData = {
@@ -102,7 +101,6 @@ export const GetProductDataFromUid = async (uid) => {
                     images: Images,
                 };
             } else {
-                console.log("No such document!");
             }
         }
     }

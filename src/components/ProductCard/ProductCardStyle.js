@@ -72,6 +72,9 @@ export const ProductCardContainer = styled.div`
         }
     }
 `;
+
+
+
 export const Thumbnail = styled.div`
     background-image: url(${(props) => props.url});
     height: 100%;
