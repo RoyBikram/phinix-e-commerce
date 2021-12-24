@@ -1,31 +1,33 @@
-import styled from "styled-components";
-import { Variables } from "../../variables/variables";
+import styled from 'styled-components'
+import {Variables} from '../../variables/variables'
 
-export const ProductCardContainer = styled.div`
-    height: 450px;
-    width: 330px;
-    background-color: ${Variables.BackgroundGray};
+export const CardPageProductContainer = styled.div`
+height: 246px;
+width: 100%;
+max-width: 630px;
+border-radius: 24px;
+background-color: ${Variables.BackgroundGray};
+display: flex;
+padding: 15px;
+column-gap: 4%;
+.RightSide {
+    width: 49%;
+    height: 100%;
+    background-color: white;
     border-radius: 12px;
+    overflow: hidden;
+    padding: 15px;
+}
+.LeftSide {
+    width: 47%;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-    .MainContainer {
-        flex-grow: 1;
-        padding: 15px;
-
-        .ThumbnailContainer {
-            background-color: white;
-            padding: 15px;
-            height: 60%;
-            width: 100%;
-            border-radius: 12px;
-        }
-        .DescriptionContainer {
-            padding: 10px;
-            color: ${Variables.TextColorBlack};
-            .Title {
+    justify-content: space-between;
+    .DetailsContainer {
+        .Title {
                 margin-top: 10px;
                 font-size: ${Variables.Title_2};
+                line-height: ${Variables.Title_2};
                 font-weight: ${Variables.R_Medium};
             }
             .PriceContainer {
@@ -62,19 +64,21 @@ export const ProductCardContainer = styled.div`
                     margin-left: 3px;
                 }
             }
-            .FreeDeliveryTag {
-                display: flex;
-                align-items: center;
-                margin-top: 15px;
-                column-gap: 5px;
-                color: ${Variables.TextColorGray};
-                font-size: ${Variables.Body_1};
-            }
+    }
+    .Controller {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        padding: 0px 10px;
+        .Quantity {
+            padding: 12px 25px 10px 25px;
+            border-radius: 7px;
+            background-color: white;
         }
     }
-`;
-
-
+}
+`
 
 export const Thumbnail = styled.div`
     background-image: url(${(props) => props.url});

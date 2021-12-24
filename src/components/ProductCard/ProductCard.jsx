@@ -4,14 +4,20 @@ import { ProductCardContainer, Thumbnail } from "./ProductCardStyle";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import StarIcon from "@mui/icons-material/Star";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GetProductDataFromUid } from "../../firebase/Firebase";
-import CircularProgress from '@mui/material/CircularProgress';
-
+import CircularProgress from "@mui/material/CircularProgress";
+import { UpdateCardProducts } from "../../firebase/Firebase";
+import { useSelector } from "react-redux";
+import Box from "@mui/material/Box";
 
 export default function ProductCard({ uid }) {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [ProductData, SetProductData] = useState(null);
+    const [ButtonLoading, SetButtonLoading] = useState(false);
+    const UserUid = useSelector((state) => {
+        return state.User?.UserData?.uid;
+    });
 
     useEffect(() => {
         const AsyncFunc = async () => {
@@ -21,33 +27,41 @@ export default function ProductCard({ uid }) {
         AsyncFunc();
     }, []);
 
+    const HandelAddToCard = async () => {
+        SetButtonLoading(true);
+        await UpdateCardProducts(UserUid, ProductData.uid)
+        SetButtonLoading(false);
+    };
+
     return (
         <>
-            {(!ProductData) ? (
-                (<ProductCardContainer style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-                    <CircularProgress color="inherit"/>
-                </ProductCardContainer>)
+            {!ProductData ? (
+                <ProductCardContainer
+                    style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
+                    <CircularProgress color="inherit" />
+                </ProductCardContainer>
             ) : (
                 <ProductCardContainer>
                     <Link to={`/${ProductData.uid}`} className="MainContainer">
                         <div className="ThumbnailContainer">
-                            <Thumbnail
-                                url={
-                                    ProductData.images[0]
-                                }
-                            ></Thumbnail>
+                            <Thumbnail url={ProductData.images[0]}></Thumbnail>
                         </div>
                         <div className="DescriptionContainer">
-                                <div className="Title">{ ProductData.name}</div>
+                            <div className="Title">{ProductData.name}</div>
                             <div className="PriceContainer">
                                 <div className="CurrentPrice">{`$${ProductData?.price.currentPrice}`}</div>
                                 <div className="OriginalPrice">{`$${ProductData?.price.originalPrice}`}</div>
-                                <div className="Discount">{`${
-                                Math.ceil(((ProductData?.price.originalPrice -
-                                    ProductData?.price.currentPrice) *
-                                    100) /
-                                ProductData?.price.originalPrice)
-                            }%`}</div>
+                                <div className="Discount">{`${Math.ceil(
+                                    ((ProductData?.price.originalPrice -
+                                        ProductData?.price.currentPrice) *
+                                        100) /
+                                        ProductData?.price.originalPrice
+                                )}%`}</div>
                             </div>
                             <div className="RatingsContainer">
                                 {ProductData.rating}
@@ -70,28 +84,48 @@ export default function ProductCard({ uid }) {
                             sx={{
                                 width: "50%",
                                 height: "60px",
-                                borderTopLeftRadius: "0px",
-                                borderBottomLeftRadius: "12px",
+                                borderRadius: "0",
                                 fontSize: "15px",
                             }}
                         >
                             Buy Now
                         </Button>
-                        <Button
-                            sx={{
-                                width: "50%",
-                                height: "60px",
-                                borderTopRightRadius: "0px",
-                                borderBottomRightRadius: "12px",
-                                backgroundColor: "#ff8282",
-                                fontSize: "15px",
-                                ":hover": {
-                                    backgroundColor: "#f57b7b",
-                                },
-                            }}
-                        >
-                            Add To Card
-                        </Button>
+
+                        <Box sx={{ width: "50%", position: "relative" }}>
+                            <Button
+                                variant="contained"
+                                sx={{
+                                    width: "100%",
+                                    height: "60px",
+                                    borderRadius: "0",
+                                    backgroundColor: "#ff8282",
+                                    fontSize: "15px",
+                                    boxShadow: "none",
+                                    ":hover": {
+                                        boxShadow: "none",
+
+                                        backgroundColor: "#f57b7b",
+                                    },
+                                }}
+                                disabled={ButtonLoading}
+                                onClick={HandelAddToCard}
+                            >
+                                Add to Card
+                            </Button>
+                            {ButtonLoading && (
+                                <CircularProgress
+                                    size={24}
+                                    sx={{
+                                        color: "primary",
+                                        position: "absolute",
+                                        top: "50%",
+                                        left: "50%",
+                                        marginTop: "-12px",
+                                        marginLeft: "-12px",
+                                    }}
+                                />
+                            )}
+                        </Box>
                     </ButtonGroup>
                 </ProductCardContainer>
             )}

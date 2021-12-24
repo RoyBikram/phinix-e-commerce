@@ -8,6 +8,8 @@ import {
     onSnapshot,
     getDocs,
     getDoc,
+    setDoc,
+    deleteDoc
 } from "firebase/firestore";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
@@ -92,6 +94,7 @@ export const GetProductDataFromUid = async (uid) => {
                 Images.push(url);
             })
             .catch((error) => {
+                console.log(error.message)
             });
         if (i === 3) {
             if (docSnap.exists()) {
@@ -108,3 +111,55 @@ export const GetProductDataFromUid = async (uid) => {
     return ProductData;
 };
 
+export const UpdateCardProducts = async (uid,productUid) => {
+    const Ref = doc(db, `Users/${uid}/CardProducts/${productUid}`);
+    const Snap = await getDoc(Ref);
+    if (!Snap.exists()) {
+        try {
+            await setDoc(Ref, {
+                quantity:1
+            });
+        } catch (error) {}
+    } else if (Snap.exists()) {
+        IncreaseCardProductQuantity(uid,productUid)  
+    }
+}
+
+export const IncreaseCardProductQuantity = async (uid,productUid) => {
+    const Ref = doc(db, `Users/${uid}/CardProducts/${productUid}`);
+    const Snap = await getDoc(Ref);
+   if (Snap.exists()) {
+        const value = (Snap.data().quantity)+1
+        try {
+            await setDoc(Ref, {
+                quantity:value
+            });
+        } catch (error) {}
+        
+    }
+}
+export const DecreaseCardProductQuantity = async (uid,productUid) => {
+    const Ref = doc(db, `Users/${uid}/CardProducts/${productUid}`);
+    const Snap = await getDoc(Ref);
+   if (Snap.exists()) {
+        const value = (Snap.data().quantity)-1
+        try {
+            await setDoc(Ref, {
+                quantity:value
+            });
+        } catch (error) {}
+        
+    }
+}
+export const DeleteCardProduct = async (uid,productUid) => {
+    const Ref = doc(db, `Users/${uid}/CardProducts/${productUid}`);
+    const Snap = await getDoc(Ref);
+    if (Snap.exists()) {
+        try {
+            await deleteDoc(Ref);
+        } catch (error) {
+            console.log(error.message)
+        }
+        
+    }
+}

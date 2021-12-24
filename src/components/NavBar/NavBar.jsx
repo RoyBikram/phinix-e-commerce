@@ -22,6 +22,7 @@ import IconButton from '@mui/material/IconButton';
 export default function NavBar() {
     const dispatch = useDispatch();
     let user = useSelector((state) => state.User.UserData);
+    let Quantity = useSelector((state) => state.Card.CardProductQuantity);
 
     const HandelLogoutButtonClick = () => {
         signOut(auth)
@@ -77,13 +78,10 @@ export default function NavBar() {
 
                         <NavLink to="/card">
                             <IconButton aria-label="cart">
-                                <Badge badgeContent={0} color="warning">
+                                <Badge badgeContent={(Quantity)?Quantity:0} color="warning">
                                     <ShoppingCartIcon />
                                 </Badge>
                             </IconButton>
-                            {/* <NavItem>
-                                <CardIcon></CardIcon>
-                            </NavItem> */}
                         </NavLink>
                         {user ? (
                             <Avatar
