@@ -41,7 +41,9 @@ export default function HomePage() {
                                 <FirstPart>HEAD</FirstPart>
                                 <SecondPart>PHONE</SecondPart>
                             </MainHeading>
-                            <Button variant="contained">Buy Now</Button>
+                            <Button onClick={() => {
+                                navigate("/s7FzAJPcA6lJI6nsFHMg")
+                            }} variant="contained">Buy Now</Button>
                             <BottomContainer>
                                 <BottomHeading>Description</BottomHeading>
                                 <BottomDescription>

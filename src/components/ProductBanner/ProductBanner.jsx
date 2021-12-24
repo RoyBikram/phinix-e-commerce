@@ -1,10 +1,18 @@
 import React from 'react'
 import BannerTWS from '../../res/img/BannerTWS.png'
 import Button from "@mui/material/Button";
-import {ProductBannerContainer, BannerContent} from './ProductBannerStyle'
+import { ProductBannerContainer, BannerContent } from './ProductBannerStyle'
+import {useNavigate} from 'react-router-dom'
 
 
 export default function ProductBanner() {
+
+    const navigate = useNavigate()
+
+    const HandelButtonClick = () => {
+        navigate("/leParWNtizHZos9kJpE3")
+    }
+
     return (
         <ProductBannerContainer>
             <BannerContent>
@@ -17,7 +25,7 @@ export default function ProductBanner() {
                     <div className="Subheading">Best Offer Of The Year</div>
                     <div className="Heading">Summer Sale</div>
                     <div className="Description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates tempore .</div>
-                    <Button variant="contained" color="secondary" sx={{
+                    <Button onClick={HandelButtonClick} variant="contained" color="secondary" sx={{
                         boxShadow: 'none',
                         ":hover": {
                             boxShadow:"none"

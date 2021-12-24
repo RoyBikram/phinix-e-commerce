@@ -6,8 +6,11 @@ import {
     collection,
     updateDoc,
     onSnapshot,
+    getDocs,
+    getDoc,
 } from "firebase/firestore";
-import { getAuth, signInWithPopup, GoogleAuthProvider} from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCUM5A_g__8iGunnWKMRlwnEO7oznytuFo",
@@ -25,12 +28,12 @@ export const db = getFirestore();
 
 const provider = new GoogleAuthProvider();
 export const auth = getAuth();
+const storage = getStorage();
 
 // Dispatch Function for redux
 
-
 export const AuthWithGoogle = async () => {
-    let user = null
+    let user = null;
     await signInWithPopup(auth, provider)
         .then((result) => {
             user = result.user;
@@ -40,12 +43,10 @@ export const AuthWithGoogle = async () => {
             const errorMessage = error.message;
             console.log(`Some Error : ${errorCode}/${errorMessage}`);
         });
-    return user
+    return user;
 };
 
-export const LogOutUser = (params) => {
-
-}
+export const LogOutUser = (params) => {};
 
 export const UploadData = async () => {
     const q = collection(db, "ProductsData");
@@ -71,3 +72,41 @@ export const UploadData = async () => {
     //   });
     //   });
 };
+
+export const FetchCategoryData = async () => {
+    let FetchData = {};
+    const querySnapshot = await getDocs(collection(db, "Category"));
+    querySnapshot.forEach((doc) => {
+        FetchData[doc.id] = doc.data();
+    });
+    return FetchData;
+};
+
+export const GetProductDataFromUid = async (uid) => {
+    let ProductData = null;
+    let Images = [];
+    const docRef = doc(db, `ProductsData/${uid}`);
+    const docSnap = await getDoc(docRef);
+
+    for (let i = 1; i < 4; i++) {
+        await getDownloadURL(ref(storage, `ProductsImages/${uid}/${i}.jpeg`))
+            .then((url) => {
+                Images.push(url);
+            })
+            .catch((error) => {});
+        if (i === 3) {
+            if (docSnap.exists()) {
+                ProductData = {
+                    ...docSnap.data(),
+                    category: docSnap.id,
+                    images: Images,
+                };
+            } else {
+                console.log("No such document!");
+            }
+        }
+    }
+
+    return ProductData;
+};
+

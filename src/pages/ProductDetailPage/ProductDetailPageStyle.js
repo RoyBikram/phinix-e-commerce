@@ -109,7 +109,7 @@ export const DetailContainer = styled.div`
                 color: ${Variables.TextColorGray};
 
                 .KeysContainer {
-                    min-width: 100px;
+                    min-width: 200px;
                     .Key {
                         margin-bottom: 10px;
                         padding-left: 20px;

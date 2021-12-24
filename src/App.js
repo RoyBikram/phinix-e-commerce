@@ -13,13 +13,13 @@ import ProductDetailPage from "./pages/ProductDetailPage/ProductDetailPage";
 import CardPage from "./pages/CardPage/CardPage";
 import AddressPage from "./pages/AddressPage/AddressPage";
 import ConfirmOrderPage from "./pages/ConfirmOrderPage/ConfirmOrderPage";
-
 import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
-import { auth } from "./firebase/Firebase";
+import { auth,FetchCategoryData } from "./firebase/Firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setUser } from "./redux/UserReducer/UserReducer";
+import { setCategoryData } from "./redux/CategoryReducer/CategoryReducer";
 
 function App() {
     const dispatch = useDispatch();
@@ -38,6 +38,11 @@ function App() {
             } else {
             }
         });
+        const AsyncFunc = async () => {
+            const FetchData = await FetchCategoryData()
+            dispatch(setCategoryData(FetchData))
+        }
+        AsyncFunc()
         return () => {
             unSubscribeFromUserData();
         };
