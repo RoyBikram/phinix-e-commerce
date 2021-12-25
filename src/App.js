@@ -19,7 +19,7 @@ import { auth, FetchCategoryData, db } from "./firebase/Firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "./redux/UserReducer/UserReducer";
-import { setCategoryData } from "./redux/CategoryReducer/CategoryReducer";
+import { setCategoryData,setCardValue } from "./redux/CategoryReducer/CategoryReducer";
 import { collection, onSnapshot } from "firebase/firestore";
 import {
     setCardData,
@@ -75,6 +75,7 @@ function App() {
                         }, 0)
                     )
                 );
+                // dispatch(setCardValue())
             });
         }
         return () => {

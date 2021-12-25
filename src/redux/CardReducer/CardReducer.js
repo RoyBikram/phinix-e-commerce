@@ -4,7 +4,8 @@ const CardSlice = createSlice({
     name: "Card",
     initialState: {
         CardData: null,
-        CardProductQuantity: 0
+        CardProductQuantity: 0,
+        CardValue:0
     },
     reducers: {
         setCardData:(state,action) => {
@@ -12,9 +13,12 @@ const CardSlice = createSlice({
         },
         setCardProductQuantity: (state, action) => {
             state.CardProductQuantity = action.payload
+        },
+        setCardValue:(state,action) => {
+            state.CardValue = (state.CardValue + action.payload)
         }
     }
 })
 
-export const { setCardData,setCardProductQuantity} = CardSlice.actions;
+export const { setCardData,setCardProductQuantity,setCardValue} = CardSlice.actions;
 export default CardSlice.reducer

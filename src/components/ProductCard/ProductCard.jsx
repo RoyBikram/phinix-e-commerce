@@ -7,7 +7,7 @@ import StarIcon from "@mui/icons-material/Star";
 import { Link, useNavigate } from "react-router-dom";
 import { GetProductDataFromUid } from "../../firebase/Firebase";
 import CircularProgress from "@mui/material/CircularProgress";
-import { UpdateCardProducts } from "../../firebase/Firebase";
+import { AddProductToCard } from "../../firebase/Firebase";
 import { useSelector } from "react-redux";
 import Box from "@mui/material/Box";
 
@@ -18,7 +18,6 @@ export default function ProductCard({ uid }) {
     const UserUid = useSelector((state) => {
         return state.User?.UserData?.uid;
     });
-
     useEffect(() => {
         const AsyncFunc = async () => {
             const FetchedProductData = await GetProductDataFromUid(uid);
@@ -29,7 +28,7 @@ export default function ProductCard({ uid }) {
 
     const HandelAddToCard = async () => {
         SetButtonLoading(true);
-        await UpdateCardProducts(UserUid, ProductData.uid)
+        await AddProductToCard(UserUid, ProductData);
         SetButtonLoading(false);
     };
 
@@ -77,7 +76,7 @@ export default function ProductCard({ uid }) {
                         sx={{
                             boxShadow: "none",
                         }}
-                        variant="contained"
+                            variant="contained"
                         aria-label="outlined primary button group"
                     >
                         <Button

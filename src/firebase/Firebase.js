@@ -9,7 +9,7 @@ import {
     getDocs,
     getDoc,
     setDoc,
-    deleteDoc
+    deleteDoc,
 } from "firebase/firestore";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
@@ -94,7 +94,7 @@ export const GetProductDataFromUid = async (uid) => {
                 Images.push(url);
             })
             .catch((error) => {
-                console.log(error.message)
+                console.log(error.message);
             });
         if (i === 3) {
             if (docSnap.exists()) {
@@ -111,55 +111,66 @@ export const GetProductDataFromUid = async (uid) => {
     return ProductData;
 };
 
-export const UpdateCardProducts = async (uid,productUid) => {
-    const Ref = doc(db, `Users/${uid}/CardProducts/${productUid}`);
+export const AddProductToCard = async (uid, productData) => {
+    const Ref = doc(db, `Users/${uid}/CardProducts/${productData.uid}`);
     const Snap = await getDoc(Ref);
+    // New Product
     if (!Snap.exists()) {
         try {
             await setDoc(Ref, {
-                quantity:1
+                quantity: 1,
+                name: productData.name,
+                price: productData.price,
+                rating: productData.rating,
+                image:productData.images[0]
             });
-        } catch (error) {}
+        } catch (error) { }
+        // Existing Product
     } else if (Snap.exists()) {
-        IncreaseCardProductQuantity(uid,productUid)  
+        IncreaseCardProductQuantity(uid, productData.uid);
     }
-}
+};
 
-export const IncreaseCardProductQuantity = async (uid,productUid) => {
+export const IncreaseCardProductQuantity = async (uid, productUid) => {
     const Ref = doc(db, `Users/${uid}/CardProducts/${productUid}`);
     const Snap = await getDoc(Ref);
-   if (Snap.exists()) {
-        const value = (Snap.data().quantity)+1
-        try {
-            await setDoc(Ref, {
-                quantity:value
-            });
-        } catch (error) {}
-        
+    if (Snap.data().quantity < 5) {
+        if (Snap.exists()) {
+            const value = Snap.data().quantity + 1;
+            try {
+                await updateDoc(Ref, {
+                    quantity: value,
+                });
+            } catch (error) {
+                console.log(error.message)
+            }
+        }
     }
-}
-export const DecreaseCardProductQuantity = async (uid,productUid) => {
+};
+export const DecreaseCardProductQuantity = async (uid, productUid) => {
     const Ref = doc(db, `Users/${uid}/CardProducts/${productUid}`);
     const Snap = await getDoc(Ref);
-   if (Snap.exists()) {
-        const value = (Snap.data().quantity)-1
+    if (Snap.exists()) {
+        const value = Snap.data().quantity - 1;
         try {
-            await setDoc(Ref, {
-                quantity:value
+            await updateDoc(Ref, {
+                quantity: value,
             });
-        } catch (error) {}
-        
+        } catch (error) {
+            console.log(error.message)
+        }
     }
-}
-export const DeleteCardProduct = async (uid,productUid) => {
+};
+export const DeleteCardProduct = async (uid, productUid) => {
     const Ref = doc(db, `Users/${uid}/CardProducts/${productUid}`);
     const Snap = await getDoc(Ref);
     if (Snap.exists()) {
         try {
             await deleteDoc(Ref);
         } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
         }
-        
     }
-}
+};
+
+// export const

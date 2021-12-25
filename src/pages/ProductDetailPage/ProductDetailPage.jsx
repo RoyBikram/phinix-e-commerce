@@ -16,9 +16,9 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import LoadingPage from "../LoadingPage/LoadingPage";
-import { UpdateCardProducts } from "../../firebase/Firebase";
-import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
+import { AddProductToCard } from "../../firebase/Firebase";
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function ProductDetailPage() {
     const Params = useParams();
@@ -47,7 +47,7 @@ export default function ProductDetailPage() {
 
     const HandelAddToCard = async () => {
         SetButtonLoading(true);
-        await UpdateCardProducts(UserUid, ProductData.uid)
+        await AddProductToCard(UserUid, ProductData);
         SetButtonLoading(false);
     };
 
@@ -123,7 +123,7 @@ export default function ProductDetailPage() {
                                             boxShadow: "none",
                                             ":hover": {
                                                 boxShadow: "none",
-    
+
                                                 backgroundColor: "#f57b7b",
                                             },
                                         }}

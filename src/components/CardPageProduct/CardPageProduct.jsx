@@ -6,12 +6,11 @@ import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import RemoveRoundedIcon from "@mui/icons-material/RemoveRounded";
 import StarIcon from "@mui/icons-material/Star";
 import { useSelector } from "react-redux";
-import { GetProductDataFromUid } from "../../firebase/Firebase";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { red } from "@mui/material/colors";
 import { green } from "@mui/material/colors";
-import {DecreaseCardProductQuantity,IncreaseCardProductQuantity,DeleteCardProduct} from '../../firebase/Firebase'
+import { DecreaseCardProductQuantity, IncreaseCardProductQuantity, DeleteCardProduct } from '../../firebase/Firebase'
 
 export default function CardPageProduct({ data }) {
     const ProductUid = Object.keys(data)[0];
@@ -20,29 +19,27 @@ export default function CardPageProduct({ data }) {
         return state.User?.UserData?.uid;
     });
     const SelectedProduct = useRef()
-    const [ProductData, SetProductData] = useState(null);
     const [DecreaseButtonLoading, SetDecreaseButtonLoading] = useState(false);
     const [IncreaseButtonLoading, SetIncreaseButtonLoading] = useState(false);
     const [DecreaseButtonDisabled, SetDecreaseButtonDisabled] = useState(false);
     const [IncreaseButtonDisabled, SetIncreaseButtonDisabled] = useState(false);
-    const [IsLoading,SetIsLoading]= useState(true)
     useEffect(() => {
         switch (true) {
             case (Quantity === 1):
                 SetDecreaseButtonDisabled(true)
+                SetIncreaseButtonDisabled(false)
                 break;
             case (Quantity === 5):
                 SetIncreaseButtonDisabled(true)
+                SetDecreaseButtonDisabled(false)
                 break;
-            case (1 < Quantity < 10):
+            case (1 < Quantity < 5):
                 SetDecreaseButtonDisabled(false)
                 SetIncreaseButtonDisabled(false)
                 break;
             default:
                 break;
         }
-
-        
         return () => {
             
         }
@@ -60,51 +57,28 @@ export default function CardPageProduct({ data }) {
     }
     const HandelDeleteButton = async () => {
         await DeleteCardProduct(UserUid, ProductUid)
-        // SelectedProduct.current.style.display = "none";
     }
 
-    useEffect(() => {
-        const AsyncFunc = async () => {
-            SetIsLoading(true)
-            const FetchedProductData = await GetProductDataFromUid(ProductUid);
-            SetProductData(FetchedProductData);
-            SetIsLoading(false)
-        };
-        AsyncFunc();
-    }, [ProductUid]);
-
     return (
-        <>
-            {IsLoading ? (
-                <CardPageProductContainer
-                    style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                    }}
-                >
-                    <CircularProgress color="inherit" />
-                </CardPageProductContainer>
-            ) : (
-                <CardPageProductContainer ref={SelectedProduct}>
+        <CardPageProductContainer ref={SelectedProduct}>
                     <div className="RightSide">
-                        <Thumbnail url={ProductData.images[0]}></Thumbnail>
+                        <Thumbnail url={data[ProductUid].image}></Thumbnail>
                     </div>
                     <div className="LeftSide">
                         <div className="DetailsContainer">
-                            <div className="Title">{ProductData.name}</div>
+                            <div className="Title">{data[ProductUid].name}</div>
                             <div className="PriceContainer">
-                                <div className="CurrentPrice">{`$${ProductData?.price.currentPrice}`}</div>
-                                <div className="OriginalPrice">{`$${ProductData?.price.originalPrice}`}</div>
+                                <div className="CurrentPrice">{`$${data[ProductUid]?.price.currentPrice}`}</div>
+                                <div className="OriginalPrice">{`$${data[ProductUid]?.price.originalPrice}`}</div>
                                 <div className="Discount">{`${Math.ceil(
-                                    ((ProductData?.price.originalPrice -
-                                        ProductData?.price.currentPrice) *
+                                    ((data[ProductUid]?.price.originalPrice -
+                                        data[ProductUid]?.price.currentPrice) *
                                         100) /
-                                        ProductData?.price.originalPrice
+                                        data[ProductUid]?.price.originalPrice
                                 )}%`}</div>
                             </div>
                             <div className="RatingsContainer">
-                                {ProductData.rating}
+                                {data[ProductUid].rating}
                                 <StarIcon sx={{ fontSize: 13 }}></StarIcon>
                             </div>
                         </div>
@@ -152,7 +126,5 @@ export default function CardPageProduct({ data }) {
                         </div>
                     </div>
                 </CardPageProductContainer>
-            )}
-        </>
     );
 }
