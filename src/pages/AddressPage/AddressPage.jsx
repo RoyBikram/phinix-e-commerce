@@ -3,17 +3,36 @@ import { AddressPageContainer, GridContainer } from "./AddressPageStyle";
 import Heading from "../../components/Heading/Heading";
 import InputField from "../../components/InputField/InputField";
 import Button from "@mui/material/Button";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+import { AddAddressToFirebase } from "../../firebase/Firebase";
+import { useSelector } from "react-redux";
 
 export default function AddressPage() {
-    const navigate = useNavigate()
+    const UserUid = useSelector((state) => {
+        return state.User.UserData?.uid;
+    });
+    const UserAddress = useSelector((state) => {
+        return state.User.UserAddress?.Address;
+    });
+    const navigate = useNavigate();
 
-    const HandelButtonClick = () => {
-        navigate("/confirm_order")
-    }
-    
+    const HandelButtonClick = async (e) => {
+        e.preventDefault();
+        const Data = {
+            name: e.target.name.value,
+            mobile_number: e.target.mobile_number.value,
+            country: e.target.country.value,
+            state: e.target.state.value,
+            district: e.target.district.value,
+            city_town: e.target.city_town.value,
+            pin: e.target.pin_code.value,
+            landmark: e.target.landmark.value,
+        };
+        await AddAddressToFirebase(Data, UserUid)
+        navigate("/order_summary")
+    };
     return (
-        <AddressPageContainer>
+        <AddressPageContainer onSubmit={HandelButtonClick}>
             <Heading mainHeading="Your Shipping Address" />
             <GridContainer>
                 <InputField
@@ -58,21 +77,22 @@ export default function AddressPage() {
                 />
             </GridContainer>
             <Button
-                onClick={HandelButtonClick}
+                // onClick={HandelButtonClick}
                 variant="contained"
+                type="submit"
                 sx={{
                     width: "300px",
                     height: "60px",
                     borderRadius: "12px",
                     fontSize: "15px",
                     boxShadow: "none",
-                    marginTop:"50px",
+                    marginTop: "50px",
                     ":hover": {
                         boxShadow: "none",
                     },
                 }}
             >
-                Deliver Here
+                Save and Continue
             </Button>
         </AddressPageContainer>
     );

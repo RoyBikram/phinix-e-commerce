@@ -3,21 +3,25 @@ import {
     CardPageContainer,
     ProductListContainer,
     Product,
-    PriceDetailsContainer,
     PriceDetails,
     MainContainer,
 } from "./CardPageStyle";
 
-import Button from "@mui/material/Button";
 import Heading from "../../components/Heading/Heading";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import CardPageProduct from "../../components/CardPageProduct/CardPageProduct";
 import LoadingPage from '../../pages/LoadingPage/LoadingPage'
+import { setPendingOrder } from '../../redux/OrderReducer/OrderReducer'
+import PriceDetailsCard from '../../components/PriceDetailsCard/PriceDetailsCard'
 
 export default function CardPage() {
+    const dispatch = useDispatch()
     const CardData = useSelector((state) => {
         return state.Card.CardData;
+    });
+    const UserAddress = useSelector((state) => {
+        return state.User.UserAddress?.Address;
     });
     const CardValue = useSelector((state) => {
         return state.Card.CardValue;
@@ -25,7 +29,15 @@ export default function CardPage() {
     const navigate = useNavigate();
 
     const HandelPlaceOrderClick = () => {
-        navigate("/shipping_address");
+        dispatch(setPendingOrder({
+            ProductData: CardData,
+            Value: CardValue
+        }))
+        if (UserAddress) {
+            navigate("/order_summary"); 
+        } else {
+            navigate("/shipping_address"); 
+        }
     };
 
     return (
@@ -44,35 +56,7 @@ export default function CardPage() {
                                 return <CardPageProduct key={index} data={data} />;
                             })}
                         </ProductListContainer>
-                        <PriceDetailsContainer>
-                            <PriceDetails>
-                                <div className="MainTitle">Price Details</div>
-                                <div className="TotalPriceContainer">
-                                    <div className="Title">Total Price</div>
-                                        <div className="Amount">${CardValue}</div>
-                                </div>
-                                <div className="DeliveryChargeContainer">
-                                    <div className="Title">Delivery Charge</div>
-                                    <div className="Amount">Free</div>
-                                </div>
-                                <Button
-                                    onClick={HandelPlaceOrderClick}
-                                    variant="contained"
-                                    sx={{
-                                        width: "100%",
-                                        height: "60px",
-                                        borderRadius: "12px",
-                                        fontSize: "15px",
-                                        boxShadow: "none",
-                                        ":hover": {
-                                            boxShadow: "none",
-                                        },
-                                    }}
-                                >
-                                    Place Order
-                                </Button>
-                            </PriceDetails>
-                        </PriceDetailsContainer>
+                            <PriceDetailsCard CardValue ={CardValue}HandelButtonClick={HandelPlaceOrderClick}ButtonLabel={"Placed Order"}></PriceDetailsCard>
                     </MainContainer>
                 </CardPageContainer>
             )}

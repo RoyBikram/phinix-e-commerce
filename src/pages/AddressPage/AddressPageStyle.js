@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const AddressPageContainer = styled.div`
+export const AddressPageContainer = styled.form`
 display: flex;
 flex-direction: column;
 align-items: center;

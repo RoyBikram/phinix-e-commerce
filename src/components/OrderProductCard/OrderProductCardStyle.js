@@ -1,41 +1,28 @@
 import styled from 'styled-components'
 import {Variables} from '../../variables/variables'
 
-export const CardPageContainer = styled.div`
+export const OrderProductCardContainer = styled.div`
+height: 170px;
 width: 100%;
-
-`
-export const MainContainer = styled.div`
-display: flex;
-
-`
-export const ProductListContainer = styled.div`
-width: 70%;
-display: flex;
-flex-direction: column;
-row-gap: 20px;
-`
-export const Product = styled.div`
-height: 246px;
-width: 100%;
-max-width: 630px;
+max-width: 450px;
 border-radius: 24px;
 background-color: ${Variables.BackgroundGray};
 display: flex;
 padding: 15px;
 column-gap: 4%;
-.RightSide {
+.LeftSide {
     width: 49%;
     height: 100%;
     background-color: white;
     border-radius: 12px;
+    overflow: hidden;
+    padding: 15px;
 }
-.LeftSide {
+.RightSide {
     width: 47%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    .DetailsContainer {
+    /* justify-content: space-between; */
         .Title {
                 margin-top: 10px;
                 font-size: ${Variables.Title_2};
@@ -44,7 +31,7 @@ column-gap: 4%;
             }
             .PriceContainer {
                 display: flex;
-                margin-top: 10px;
+                margin-top: 15px;
                 align-items: flex-end;
                 column-gap: 7px;
                 .CurrentPrice {
@@ -62,6 +49,12 @@ column-gap: 4%;
                     font-weight: ${Variables.R_Medium};
                 }
             }
+            .LowerContainer {
+                display: flex;
+                align-items: center;
+                margin-top: 15px;
+                justify-content: space-between;
+
             .RatingsContainer {
                 width: fit-content;
                 background-color: ${Variables.PrimaryColor};
@@ -71,23 +64,25 @@ column-gap: 4%;
                 display: flex;
                 align-items: center;
                 border-radius: 10px;
-                margin-top: 12px;
                 svg {
                     margin-left: 3px;
                 }
             }
-    }
-    .Controller {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
-        padding: 0px 10px;
-        .Quantity {
-            padding: 12px 25px 10px 25px;
-            border-radius: 7px;
-            background-color: white;
-        }
-    }
+            .QuantityContainer {
+                margin-right: 15px;
+                font-size: ${Variables.Body_1};
+                color: ${Variables.TextColorGray};
+            }
+            }
 }
 `
+
+export const Thumbnail = styled.div`
+    background-image: url(${(props) => props.url});
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: white;
+`;

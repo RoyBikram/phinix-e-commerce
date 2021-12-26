@@ -13,26 +13,31 @@ import ProductDetailPage from "./pages/ProductDetailPage/ProductDetailPage";
 import CardPage from "./pages/CardPage/CardPage";
 import AddressPage from "./pages/AddressPage/AddressPage";
 import ConfirmOrderPage from "./pages/ConfirmOrderPage/ConfirmOrderPage";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useEffect } from "react";
 import { auth, FetchCategoryData, db } from "./firebase/Firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "./redux/UserReducer/UserReducer";
+import { setUser,setUserAddress } from "./redux/UserReducer/UserReducer";
 import { setCategoryData} from "./redux/CategoryReducer/CategoryReducer";
 
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot,doc } from "firebase/firestore";
 import {
     setCardData,
     setCardProductQuantity,
     setCardValue 
 } from "./redux/CardReducer/CardReducer";
+import OrderSummaryPage from './pages/OrderSummaryPage/OrderSummaryPage'
 
 function App() {
     const dispatch = useDispatch();
     const UserUid = useSelector((state) => {
         return state.User?.UserData?.uid;
     });
+    const PendingOrderData = useSelector((state) => {
+        return state.Order.PendingOrder;
+    });
+
 
     useEffect(() => {
         const unSubscribeFromUserData = onAuthStateChanged(auth, (user) => {
@@ -59,10 +64,11 @@ function App() {
     }, []);
 
     useEffect(() => {
-        let unsubscribe = () => {};
+        let UnsubscribeFromCardProducts = () => {};
+        let UnsubscribeFromUserAddress = () => {};
         if (UserUid) {
             const q = collection(db, `Users/${UserUid}/CardProducts`);
-            unsubscribe = onSnapshot(q, (querySnapshot) => {
+            UnsubscribeFromCardProducts = onSnapshot(q, (querySnapshot) => {
                 const CardProducts = [];
                 querySnapshot.forEach((doc) => {
                     const obj = {};
@@ -86,9 +92,15 @@ function App() {
                     )
                 );
             });
+            // For Loading Address
+            const RefUserAddress = doc(db, `Users/${UserUid}`);
+            UnsubscribeFromUserAddress = onSnapshot(RefUserAddress, (doc) => {
+                dispatch(setUserAddress(doc.data()))
+            });
         }
         return () => {
-            unsubscribe();
+            UnsubscribeFromCardProducts();
+            UnsubscribeFromUserAddress();
         };
     }, [UserUid]);
 
@@ -111,6 +123,7 @@ function App() {
                     <Route path=":productid" element={<ProductDetailPage />} />
                     <Route path="/card" element={<CardPage />}></Route>
                     <Route path="/shipping_address" element={<AddressPage />} />
+                    <Route path="/order_summary" element={(PendingOrderData)?(<OrderSummaryPage/>):(<Navigate replace to="/card"/>) }/>
                     <Route
                         path="/confirm_order"
                         element={<ConfirmOrderPage />}

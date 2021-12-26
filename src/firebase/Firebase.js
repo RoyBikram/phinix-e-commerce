@@ -173,4 +173,23 @@ export const DeleteCardProduct = async (uid, productUid) => {
     }
 };
 
-// export const
+export const AddAddressToFirebase = async (Data, UserUid) => {
+    const Ref = doc(db, `Users/${UserUid}`);
+    const Snap = await getDoc(Ref);
+    try {
+        await setDoc(Ref, {
+            Address: {
+                name: Data.name,
+                mobile_number: Data.mobile_number,
+                country: Data.country,
+                state: Data.state,
+                district: Data.district,
+                city_town: Data.city_town,
+                pin: Data.pin,
+                landmark:Data.landmark
+            }
+        });
+    } catch (error) {
+        console.log(error.message)
+    }
+}
