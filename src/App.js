@@ -19,11 +19,13 @@ import { auth, FetchCategoryData, db } from "./firebase/Firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "./redux/UserReducer/UserReducer";
-import { setCategoryData,setCardValue } from "./redux/CategoryReducer/CategoryReducer";
+import { setCategoryData} from "./redux/CategoryReducer/CategoryReducer";
+
 import { collection, onSnapshot } from "firebase/firestore";
 import {
     setCardData,
     setCardProductQuantity,
+    setCardValue 
 } from "./redux/CardReducer/CardReducer";
 
 function App() {
@@ -75,7 +77,14 @@ function App() {
                         }, 0)
                     )
                 );
-                // dispatch(setCardValue())
+                dispatch(
+                    setCardValue(
+                        CardProducts.reduce((acc, product) => {
+                            const value = Object.values(product)[0].quantity*Object.values(product)[0].price.currentPrice
+                            return acc + value;
+                        }, 0)
+                    )
+                );
             });
         }
         return () => {

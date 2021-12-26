@@ -19,6 +19,9 @@ export default function CardPage() {
     const CardData = useSelector((state) => {
         return state.Card.CardData;
     });
+    const CardValue = useSelector((state) => {
+        return state.Card.CardValue;
+    });
     const navigate = useNavigate();
 
     const HandelPlaceOrderClick = () => {
@@ -38,7 +41,6 @@ export default function CardPage() {
                     <MainContainer>
                         <ProductListContainer>
                                 {CardData.map((data, index) => {
-                                // console.log(data)
                                 return <CardPageProduct key={index} data={data} />;
                             })}
                         </ProductListContainer>
@@ -47,7 +49,7 @@ export default function CardPage() {
                                 <div className="MainTitle">Price Details</div>
                                 <div className="TotalPriceContainer">
                                     <div className="Title">Total Price</div>
-                                    <div className="Amount">$740</div>
+                                        <div className="Amount">${CardValue}</div>
                                 </div>
                                 <div className="DeliveryChargeContainer">
                                     <div className="Title">Delivery Charge</div>

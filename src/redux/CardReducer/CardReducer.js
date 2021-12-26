@@ -15,7 +15,7 @@ const CardSlice = createSlice({
             state.CardProductQuantity = action.payload
         },
         setCardValue:(state,action) => {
-            state.CardValue = (state.CardValue + action.payload)
+            state.CardValue = action.payload
         }
     }
 })
