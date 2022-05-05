@@ -14,21 +14,27 @@ import { useEffect } from "react";
 import { GetProductDataFromUid } from "../../firebase/Firebase";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import LoadingPage from "../LoadingPage/LoadingPage";
 import { AddProductToCard } from "../../firebase/Firebase";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useNavigate } from "react-router-dom";
+import { setPendingOrder } from "../../redux/OrderReducer/OrderReducer";
 
 export default function ProductDetailPage() {
     const Params = useParams();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [ProductData, SetProductData] = useState(null);
     const [IsLoading, SetIsLoading] = useState(true);
     const [ButtonLoading, SetButtonLoading] = useState(false);
     const UserUid = useSelector((state) => {
         return state.User?.UserData?.uid;
     });
-
+    const UserAddress = useSelector((state) => {
+        return state.User.UserAddress?.Address;
+    });
     useEffect(() => {
         if (ProductData) {
             SetIsLoading(false);
@@ -49,6 +55,32 @@ export default function ProductDetailPage() {
         SetButtonLoading(true);
         await AddProductToCard(UserUid, ProductData);
         SetButtonLoading(false);
+    };
+
+    const HandelBuyNow = async () => {
+        const Data = [
+            {
+                [UserUid]: {
+                    quantity: 1,
+                    name: ProductData.name,
+                    price: ProductData.price,
+                    rating: ProductData.rating,
+                    image: ProductData.images[0],
+                },
+            },
+        ];
+
+        dispatch(
+            setPendingOrder({
+                ProductData: Data,
+                Value: ProductData.price.currentPrice,
+            })
+        );
+        if (UserAddress) {
+            navigate("/order_summary");
+        } else {
+            navigate("/shipping_address");
+        }
     };
 
     return (
@@ -96,6 +128,7 @@ export default function ProductDetailPage() {
                             </div>
                             <div className="ButtonContainer">
                                 <Button
+                                    onClick={HandelBuyNow}
                                     variant="contained"
                                     sx={{
                                         width: "165px",
@@ -106,7 +139,6 @@ export default function ProductDetailPage() {
                                         ":hover": {
                                             boxShadow: "none",
                                         },
-                                        // color: "#fff"
                                     }}
                                 >
                                     Buy Now

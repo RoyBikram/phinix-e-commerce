@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+import { initializeApp } from 'firebase/app';
 import {
     doc,
     getFirestore,
@@ -10,18 +10,18 @@ import {
     getDoc,
     setDoc,
     deleteDoc,
-} from "firebase/firestore";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
+} from 'firebase/firestore';
+import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { getStorage, ref, getDownloadURL } from 'firebase/storage';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCUM5A_g__8iGunnWKMRlwnEO7oznytuFo",
-    authDomain: "e-commerce-f5615.firebaseapp.com",
-    projectId: "e-commerce-f5615",
-    storageBucket: "e-commerce-f5615.appspot.com",
-    messagingSenderId: "236385334049",
-    appId: "1:236385334049:web:73d0eeeb235809b7868460",
-    measurementId: "G-4XKJEH79Y6",
+    apiKey: 'AIzaSyCUM5A_g__8iGunnWKMRlwnEO7oznytuFo',
+    authDomain: 'e-commerce-f5615.firebaseapp.com',
+    projectId: 'e-commerce-f5615',
+    storageBucket: 'e-commerce-f5615.appspot.com',
+    messagingSenderId: '236385334049',
+    appId: '1:236385334049:web:73d0eeeb235809b7868460',
+    measurementId: 'G-4XKJEH79Y6',
 };
 
 // Initialize Firebase
@@ -49,7 +49,7 @@ export const AuthWithGoogle = async () => {
 };
 
 export const UploadData = async () => {
-    const q = collection(db, "ProductsData");
+    const q = collection(db, 'ProductsData');
 
     onSnapshot(q, (querySnapshot) => {
         querySnapshot.forEach(async (docdata) => {
@@ -75,7 +75,7 @@ export const UploadData = async () => {
 
 export const FetchCategoryData = async () => {
     let FetchData = {};
-    const querySnapshot = await getDocs(collection(db, "Category"));
+    const querySnapshot = await getDocs(collection(db, 'Category'));
     querySnapshot.forEach((doc) => {
         FetchData[doc.id] = doc.data();
     });
@@ -122,9 +122,9 @@ export const AddProductToCard = async (uid, productData) => {
                 name: productData.name,
                 price: productData.price,
                 rating: productData.rating,
-                image:productData.images[0]
+                image: productData.images[0],
             });
-        } catch (error) { }
+        } catch (error) {}
         // Existing Product
     } else if (Snap.exists()) {
         IncreaseCardProductQuantity(uid, productData.uid);
@@ -142,7 +142,7 @@ export const IncreaseCardProductQuantity = async (uid, productUid) => {
                     quantity: value,
                 });
             } catch (error) {
-                console.log(error.message)
+                console.log(error.message);
             }
         }
     }
@@ -157,7 +157,7 @@ export const DecreaseCardProductQuantity = async (uid, productUid) => {
                 quantity: value,
             });
         } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
         }
     }
 };
@@ -175,7 +175,7 @@ export const DeleteCardProduct = async (uid, productUid) => {
 
 export const AddAddressToFirebase = async (Data, UserUid) => {
     const Ref = doc(db, `Users/${UserUid}`);
-    const Snap = await getDoc(Ref);
+    // const Snap = await getDoc(Ref);
     try {
         await setDoc(Ref, {
             Address: {
@@ -186,10 +186,40 @@ export const AddAddressToFirebase = async (Data, UserUid) => {
                 district: Data.district,
                 city_town: Data.city_town,
                 pin: Data.pin,
-                landmark:Data.landmark
-            }
+                landmark: Data.landmark,
+            },
         });
     } catch (error) {
-        console.log(error.message)
+        console.log(error.message);
     }
-}
+};
+
+export const FetchSingleOrderData = async (OrderId) => {
+    const OrderData = {}
+    // Fetch Address
+    const docRef = doc(db, 'Orders', OrderId);
+    const docSnap = await getDoc(docRef);
+    let MetaData = null;
+    if (docSnap.exists()) {
+        MetaData = docSnap.data();
+        OrderData.MetaData = MetaData;
+    } else {
+        console.log('No such document!');
+    }
+
+    // Fetch Products
+
+    const querySnapshot = await getDocs(
+        collection(db, 'Orders', OrderId, 'Products')
+    );
+    const Products = []
+    querySnapshot.forEach((doc) => {
+        const Product = {}
+        Product[doc.id] = doc.data()
+        Products.push(Product)
+    });
+    OrderData.Products = Products
+    return OrderData;
+};
+
+

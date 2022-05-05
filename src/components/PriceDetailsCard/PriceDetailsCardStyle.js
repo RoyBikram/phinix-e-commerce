@@ -10,8 +10,7 @@ export const PriceDetails = styled.div`
 /* height: 300px; */
 width: 300px;
 margin-left: auto;
-position: sticky;
-top: 150px;
+${props => props.IsSticky ? ("position: sticky; top: 150px;"):("position: relative;")}
 background-color: white;
 border-radius: 24px;
 padding: 20px;

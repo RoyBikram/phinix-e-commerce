@@ -44,8 +44,9 @@ export default function NavBar() {
                         <NavLink to="/">
                             <NavItem>Home</NavItem>
                         </NavLink>
-
-                        <NavItem>Store</NavItem>
+                        <NavLink to="/my_order">
+                            <NavItem>Orders</NavItem>
+                        </NavLink>
                         <NavItem>About</NavItem>
                         <NavItem>Contact</NavItem>
                     </NavLinkLeft>

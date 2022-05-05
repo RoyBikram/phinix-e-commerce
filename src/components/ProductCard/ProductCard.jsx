@@ -8,15 +8,20 @@ import { Link, useNavigate } from "react-router-dom";
 import { GetProductDataFromUid } from "../../firebase/Firebase";
 import CircularProgress from "@mui/material/CircularProgress";
 import { AddProductToCard } from "../../firebase/Firebase";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Box from "@mui/material/Box";
+import { setPendingOrder } from "../../redux/OrderReducer/OrderReducer";
 
 export default function ProductCard({ uid }) {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [ProductData, SetProductData] = useState(null);
     const [ButtonLoading, SetButtonLoading] = useState(false);
     const UserUid = useSelector((state) => {
         return state.User?.UserData?.uid;
+    });
+    const UserAddress = useSelector((state) => {
+        return state.User.UserAddress?.Address;
     });
     useEffect(() => {
         const AsyncFunc = async () => {
@@ -30,6 +35,28 @@ export default function ProductCard({ uid }) {
         SetButtonLoading(true);
         await AddProductToCard(UserUid, ProductData);
         SetButtonLoading(false);
+    };
+
+    const HandelBuyNow = async () => {
+        const Data = [{[uid]:{
+            quantity: 1,
+            name: ProductData.name,
+            price: ProductData.price,
+            rating: ProductData.rating,
+            image: ProductData.images[0],
+        }}];
+
+        dispatch(
+            setPendingOrder({
+                ProductData: Data,
+                Value: ProductData.price.currentPrice,
+            })
+        );
+        if (UserAddress) {
+            navigate("/order_summary");
+        } else {
+            navigate("/shipping_address");
+        }
     };
 
     return (
@@ -76,10 +103,11 @@ export default function ProductCard({ uid }) {
                         sx={{
                             boxShadow: "none",
                         }}
-                            variant="contained"
+                        variant="contained"
                         aria-label="outlined primary button group"
                     >
                         <Button
+                            onClick={HandelBuyNow}
                             sx={{
                                 width: "50%",
                                 height: "60px",

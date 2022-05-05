@@ -3,10 +3,10 @@ import { PriceDetailsCardContainer, PriceDetails } from './PriceDetailsCardStyle
 import Button from "@mui/material/Button";
 
 
-export default function PriceDetailsCard({CardValue,HandelButtonClick,ButtonLabel}) {
+export default function PriceDetailsCard({ CardValue, HandelButtonClick, ButtonLabel, ButtonDisplay = true, IsSticky = true }) {
     return (
         <PriceDetailsCardContainer>
-            <PriceDetails>
+            <PriceDetails IsSticky = {IsSticky}>
                 <div className="MainTitle">Price Details</div>
                 <div className="TotalPriceContainer">
                     <div className="Title">Total Price</div>
@@ -16,7 +16,9 @@ export default function PriceDetailsCard({CardValue,HandelButtonClick,ButtonLabe
                     <div className="Title">Delivery Charge</div>
                     <div className="Amount">Free</div>
                 </div>
-                <Button
+                {
+                    (ButtonDisplay)?
+                (<Button
                     onClick={HandelButtonClick}
                     variant="contained"
                     sx={{
@@ -32,6 +34,8 @@ export default function PriceDetailsCard({CardValue,HandelButtonClick,ButtonLabe
                 >
                     {ButtonLabel}
                 </Button>
+                    ):(<></>)
+                }
             </PriceDetails>
         </PriceDetailsCardContainer>
     );
