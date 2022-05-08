@@ -19,9 +19,6 @@ color: ${Variables.TextColorGray};
 }
 .VideoContainer {
     height: 400px;
-/* display: flex;
-align-items: center;
-justify-content: center; */
     video{
     height: 100%;
     }

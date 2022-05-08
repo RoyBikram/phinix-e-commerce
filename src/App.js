@@ -19,7 +19,6 @@ import {
     auth,
     FetchCategoryData,
     db,
-    FetchAllOrderData,
     FetchSingleOrderData
 } from './firebase/Firebase';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -28,7 +27,7 @@ import { setUser, setUserAddress } from './redux/UserReducer/UserReducer';
 import { setCategoryData } from './redux/CategoryReducer/CategoryReducer';
 import { setConfirmOrder } from './redux/OrderReducer/OrderReducer';
 
-import { collection, onSnapshot, doc } from 'firebase/firestore';
+import { collection, onSnapshot, doc, query, orderBy } from 'firebase/firestore';
 import {
     setCardData,
     setCardProductQuantity,
@@ -103,7 +102,7 @@ function App() {
                     )
                 );
             });
-            const ConfirmOrderRef = collection(db, `Users/${UserUid}/Order`);
+            const ConfirmOrderRef = query(collection(db, `Users/${UserUid}/Order`),orderBy('timestamp','desc'));
             UnsubscribeFromConfirmOrder = onSnapshot(
                 ConfirmOrderRef,
                 (querySnapshot) => {

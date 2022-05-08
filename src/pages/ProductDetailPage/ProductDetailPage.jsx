@@ -6,7 +6,6 @@ import {
 } from "./ProductDetailPageStyle";
 import { ReactComponent as CheckIcon } from "../../res/icons/check-small.svg";
 import Button from "@mui/material/Button";
-// import LoadingButton from '@material-ui/lab/LoadingButton';
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 import ProductImgSlider from "../../components/ProductImgSlider/ProductImgSlider";
@@ -60,7 +59,7 @@ export default function ProductDetailPage() {
     const HandelBuyNow = async () => {
         const Data = [
             {
-                [UserUid]: {
+                [ProductData.uid]: {
                     quantity: 1,
                     name: ProductData.name,
                     price: ProductData.price,

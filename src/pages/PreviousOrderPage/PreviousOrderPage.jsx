@@ -3,7 +3,8 @@ import { PreviousOrderPageContainer } from './PreviousOrderPageStyle';
 import Heading from '../../components/Heading/Heading';
 import LoadingPage from '../../pages/LoadingPage/LoadingPage';
 import { useSelector } from 'react-redux';
-import PreviousOrderCard from '../../components/PreviousOrderCard/PreviousOrderCard'
+import PreviousOrderCard from '../../components/PreviousOrderCard/PreviousOrderCard';
+import EmptyBox from '../../components/EmptyBox/EmptyBox'
 
 export default function PreviousOrderPage() {
     const ConfirmOrdersData = useSelector((state) => {
@@ -11,7 +12,7 @@ export default function PreviousOrderPage() {
     });
     return (
         <>
-            {(!ConfirmOrdersData) ? (
+            {!ConfirmOrdersData ? (
                 <LoadingPage />
             ) : (
                 <PreviousOrderPageContainer>
@@ -19,11 +20,20 @@ export default function PreviousOrderPage() {
                         mainHeading='Your Previous Orders'
                         subHeading='Take a look everything before make payment.'
                     />
-                        {
-                            ConfirmOrdersData.map((OrderData, Index) => { 
-                                return (<PreviousOrderCard key={Index} OrderData={OrderData}/>)
-                             })
-                    }
+                    {ConfirmOrdersData.length === 0 ? (
+                        <EmptyBox varient={'regular'} />
+                    ) : (
+                        <>
+                            {ConfirmOrdersData.map((OrderData, Index) => {
+                                return (
+                                    <PreviousOrderCard
+                                        key={Index}
+                                        OrderData={OrderData}
+                                    />
+                                );
+                            })}
+                        </>
+                    )}
                 </PreviousOrderPageContainer>
             )}
         </>

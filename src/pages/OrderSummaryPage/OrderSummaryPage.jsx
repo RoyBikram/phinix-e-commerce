@@ -42,6 +42,7 @@ export default function OrderSummaryPage() {
             ProductObj.rating = Product[ProductUid].rating
             ProductsForCheckout.push(ProductObj)
         })
+        // const checkoutSession = await fetch("http://localhost:8000/create-checkout-session", {
         const checkoutSession = await fetch("https://phinix-ecommerce-backend.herokuapp.com/create-checkout-session", {
             method: "POST",
             headers: {
@@ -67,8 +68,6 @@ export default function OrderSummaryPage() {
         } catch (error) {
             console.log(error.message)
         }
-
-
     };
     const HandelEditAddressButton = () => {
         navigate("/shipping_address")
