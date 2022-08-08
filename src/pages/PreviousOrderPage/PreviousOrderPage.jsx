@@ -18,7 +18,7 @@ export default function PreviousOrderPage() {
                 <PreviousOrderPageContainer>
                     <Heading
                         mainHeading='Your Previous Orders'
-                        subHeading='Take a look everything before make payment.'
+                        subHeading='You Will Find All Of Your Previous Order.'
                     />
                     {ConfirmOrdersData.length === 0 ? (
                         <EmptyBox varient={'regular'} />

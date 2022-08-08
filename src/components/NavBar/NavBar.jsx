@@ -35,7 +35,7 @@ export default function NavBar() {
     return (
         <>
             <NavBarContainer>
-                <NavLink to="/">
+                <NavLink style={{ textDecoration: 'none' }} to="/">
                     <NavLogo>PHINIX</NavLogo>
                 </NavLink>
 
@@ -53,18 +53,22 @@ export default function NavBar() {
                     <NavLinkRight>
                         {!user ? (
                             <>
-                                <NavLink to="/auth/login">
+                                <NavLink style={{ textDecoration: 'none' }} to="/auth/login">
                                     <NavItem>Login</NavItem>
                                 </NavLink>
                                 <NavItem>|</NavItem>
-                                <NavLink to="/auth/signup">
+                                <NavLink style={{ textDecoration: 'none' }} to="/auth/signup">
                                     <NavItem>Sign Up</NavItem>
                                 </NavLink>
                             </>
                         ) : (
                             <Button
                                 onClick={HandelLogoutButtonClick}
-                                sx={{
+                                    sx={{
+                                        display: {
+                                            xs: 'none',
+                                            md:'flex'
+                                    },
                                     padding: "7px 14px",
                                     boxShadow: "none",
                                     ":hover": {
@@ -92,6 +96,10 @@ export default function NavBar() {
                                     backgroundColor: "#ff9696",
                                     fontSize: "1rem",
                                     cursor: "pointer",
+                                    // display: {
+                                    //     xs: 'none',
+                                    //     md:'flex'
+                                    // }
                                 }}
                             >
                                 R

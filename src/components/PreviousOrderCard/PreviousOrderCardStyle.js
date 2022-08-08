@@ -15,12 +15,28 @@ export const MainContent = styled.div`
     grid-template-areas: 'OrderProductCard AddressCardContainer PriceSummaryContainer';
     justify-content: space-between;
     height: fit-content;
+    gap: 25px;
+    @media only screen and (max-width: 1200px) {
+        grid-template-areas: 'OrderProductCard AddressCardContainer' 'OrderProductCard PriceSummaryContainer';
+        justify-content: space-evenly;
+    }
+    @media only screen and (max-width: 900px) {
+        grid-template-areas: 'PriceSummaryContainer AddressCardContainer' 'OrderProductCard OrderProductCard';
+    }
+    @media only screen and (max-width: 600px) {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+    }
     .OrderProductCard {
         grid-area: OrderProductCard;
         display: flex;
         flex-direction: column;
         row-gap: 20px;
         width: 450px;
+        @media only screen and (max-width: 600px) {
+            width: 100%;
+        }
     }
     .PriceSummaryContainer {
         grid-area: PriceSummaryContainer;

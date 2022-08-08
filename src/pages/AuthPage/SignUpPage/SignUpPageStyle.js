@@ -8,6 +8,13 @@ export const SignUpPageContainer = styled.div`
     height: 650px;
     background-color: white;
     display: flex;
+    @media only screen and (max-width: 1100px) {
+        width: 500px;
+    }
+    @media only screen and (max-width: 600px) {
+        width: 100%;
+        /* height: 100%; */
+    }
 `
 export const MainContent = styled.div`
 width: 50%;
@@ -81,6 +88,10 @@ width: 50%;
             }
         }
     }
+    @media only screen and (max-width: 1100px) {
+        width: 100%;
+    }
+    
 `
 export const ImageContainer = styled.div`
 width: 50%;
@@ -88,4 +99,7 @@ width: 50%;
    background-position: center;
    background-size: cover;
    background-repeat: no-repeat;
+   @media only screen and (max-width: 1100px) {
+    display: none;
+   }
 `

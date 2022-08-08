@@ -5,6 +5,11 @@ export const SponsorSwiperContainer = styled.div`
     margin-top: 120px;
     justify-content: space-between;
     overflow: hidden;
+    flex-wrap: wrap;
+    gap:25px;
+    @media only screen and (max-width: 1000px) {
+        justify-content: space-around;
+    }
     .SponsorContainer {
         height: 130px;
         width: 23%;
@@ -12,6 +17,7 @@ export const SponsorSwiperContainer = styled.div`
         background-color: white;
         display: grid;
         place-items: center;
+        min-width: 200px;
     }
     .Sponsor {
 

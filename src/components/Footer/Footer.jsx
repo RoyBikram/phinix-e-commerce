@@ -39,7 +39,7 @@ export default function Footer() {
                 <div className="Title">For Latest News & Updates </div>
                 <div className="InputContainer">
                     <input type="email" />
-                    <Button variant="contained">Buy Now</Button>
+                    <Button sx={{minWidth:'120px'}} variant="contained">Buy Now</Button>
                 </div>
             </FooterNewsletter>
         </FooterContainer>

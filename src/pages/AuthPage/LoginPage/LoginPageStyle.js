@@ -8,6 +8,12 @@ export const LoginPageContainer = styled.div`
     height: 650px;
     background-color: white;
     display: flex;
+    @media only screen and (max-width: 1100px) {
+        width: 500px;
+    }
+    @media only screen and (max-width: 600px) {
+        width: 100%;
+    }
 `;
 export const MainContent = styled.div`
     width: 50%;
@@ -81,6 +87,10 @@ export const MainContent = styled.div`
             }
         }
     }
+    @media only screen and (max-width: 1100px) {
+        width: 100%;
+    }
+
 `;
 export const ImageContainer = styled.div`
    width: 50%;
@@ -91,6 +101,9 @@ export const ImageContainer = styled.div`
    /* img {
        
    } */
+   @media only screen and (max-width: 1100px) {
+    display: none;
+   }
 `;
 
 

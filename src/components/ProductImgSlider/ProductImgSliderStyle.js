@@ -21,6 +21,10 @@ export const ProductImgSliderContainer = styled.div`
   width: 400px;
   padding: 30px;
   background-color: white;
+  @media only screen and (max-width: 600px) {
+  height: 320px;
+  width: 320px;
+  }
 }
 
 .carousel {

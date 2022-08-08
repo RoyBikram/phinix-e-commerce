@@ -1,42 +1,52 @@
-import styled from 'styled-components'
-import {Variables} from '../../variables/variables'
+import styled from 'styled-components';
+import { Variables } from '../../variables/variables';
 
 export const CardPageContainer = styled.div`
-width: 100%;
-
-`
+    width: 100%;
+`;
 export const MainContainer = styled.div`
-display: flex;
-
-`
+    display: flex;
+    gap: 25px;
+    @media only screen and (max-width: 800px) {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+`;
 export const ProductListContainer = styled.div`
-width: 70%;
-display: flex;
-flex-direction: column;
-row-gap: 20px;
-`
-export const Product = styled.div`
-height: 246px;
-width: 100%;
-max-width: 630px;
-border-radius: 24px;
-background-color: ${Variables.BackgroundGray};
-display: flex;
-padding: 15px;
-column-gap: 4%;
-.RightSide {
-    width: 49%;
-    height: 100%;
-    background-color: white;
-    border-radius: 12px;
-}
-.LeftSide {
-    width: 47%;
+    width: 70%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    .DetailsContainer {
-        .Title {
+    row-gap: 20px;
+    @media only screen and (max-width: 800px) {
+        min-width: 450px;
+    }
+    @media only screen and (max-width: 500px) {
+        min-width: 250px;
+        width: 100%;
+    }
+`;
+export const Product = styled.div`
+    height: 246px;
+    width: 100%;
+    max-width: 630px;
+    border-radius: 24px;
+    background-color: ${Variables.BackgroundGray};
+    display: flex;
+    padding: 15px;
+    column-gap: 4%;
+    .RightSide {
+        width: 49%;
+        height: 100%;
+        background-color: white;
+        border-radius: 12px;
+    }
+    .LeftSide {
+        width: 47%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .DetailsContainer {
+            .Title {
                 margin-top: 10px;
                 font-size: ${Variables.Title_2};
                 line-height: ${Variables.Title_2};
@@ -76,18 +86,19 @@ column-gap: 4%;
                     margin-left: 3px;
                 }
             }
-    }
-    .Controller {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
-        padding: 0px 10px;
-        .Quantity {
-            padding: 12px 25px 10px 25px;
-            border-radius: 7px;
-            background-color: white;
         }
+        .Controller {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 0px 10px;
+            .Quantity {
+                padding: 12px 25px 10px 25px;
+                border-radius: 7px;
+                background-color: white;
+            }
+        }
+       
     }
-}
-`
+`;

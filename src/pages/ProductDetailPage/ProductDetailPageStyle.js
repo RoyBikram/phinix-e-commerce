@@ -7,10 +7,18 @@ export const ProductDetailPageContainer = styled.div`
     width: 100%;
     border-radius: 24px;
     background-color: ${Variables.BackgroundGray};
+    gap: 25px;
+    padding: 25px;
+    @media only screen and (max-width: 900px) {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+
 `;
 export const DetailContainer = styled.div`
     width: 50%;
-    padding: 100px 0;
+    padding: 50px 0;
     .ContentContainer {
         max-width: 400px;
         .SubTitle {
@@ -137,10 +145,26 @@ export const DetailContainer = styled.div`
             }
         }
     }
+    @media only screen and (max-width: 900px) {
+        width: 90%;
+        .ContentContainer{
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    }
+    @media only screen and (max-width: 900px) {
+        width: 100%;
+    }
 `;
 export const ImageContainer = styled.div`
     width: 50%;
     display: flex;
     justify-content: center;
-    padding-top: 100px;
+    padding-top: 50px;
+    @media only screen and (max-width: 600px) {
+        padding-top: 20px;
+    }
+    @media only screen and (max-width: 600px) {
+        padding-top: 0px;
+    }
 `;

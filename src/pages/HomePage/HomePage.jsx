@@ -41,7 +41,8 @@ export default function HomePage() {
                                 <FirstPart>HEAD</FirstPart>
                                 <SecondPart>PHONE</SecondPart>
                             </MainHeading>
-                            <Button onClick={() => {
+                            <MainImg src={HeroImg}></MainImg>
+                            <Button sx={{ width:'fit-content'}} onClick={() => {
                                 navigate("/s7FzAJPcA6lJI6nsFHMg")
                             }} variant="contained">Buy Now</Button>
                             <BottomContainer>
@@ -52,7 +53,6 @@ export default function HomePage() {
                                     luctus venenatis, le
                                 </BottomDescription>
                             </BottomContainer>
-                            <MainImg src={HeroImg}></MainImg>
                         </HeadingBannerContainer>
                     </HeadingBanner>
                     <EarphoneCard>

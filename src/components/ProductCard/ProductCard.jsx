@@ -73,7 +73,7 @@ export default function ProductCard({ uid }) {
                 </ProductCardContainer>
             ) : (
                 <ProductCardContainer>
-                    <Link to={`/${ProductData.uid}`} className="MainContainer">
+                    <Link style={{ textDecoration: 'none' }} to={`/${ProductData.uid}`} className="MainContainer">
                         <div className="ThumbnailContainer">
                             <Thumbnail url={ProductData.images[0]}></Thumbnail>
                         </div>

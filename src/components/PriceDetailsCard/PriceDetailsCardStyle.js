@@ -14,6 +14,9 @@ ${props => props.IsSticky ? ("position: sticky; top: 150px;"):("position: relati
 background-color: white;
 border-radius: 24px;
 padding: 20px;
+@media only screen and (max-width: 900px) {
+        margin-left: 0;
+    }
 &::before {
     content: "";
     background-color: rgb(245,245,245);
@@ -47,6 +50,9 @@ padding: 20px;
         /* font-size: ${Variables.Body_1}; */
         color: ${Variables.TextColorBlack};
     margin-bottom: 40px;
+    @media only screen and (max-width: 600px) {
+    margin-bottom: 20px;
+    }
 
     }
     .Amount {

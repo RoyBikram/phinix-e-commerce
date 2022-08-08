@@ -75,6 +75,11 @@ column-gap: 4%;
             }
             }
 }
+@media only screen and (max-width: 600px) {
+       
+       margin: 0 auto;
+       height: 170px;
+   }
 `
 
 export const Thumbnail = styled.div`

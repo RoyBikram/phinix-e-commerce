@@ -10,6 +10,9 @@ export const StyledTrustPoint = styled.div`
     border-radius: 10px;
     /* border: 2px solid #e2e2e2; */
     /* column-gap: 5%; */
+    @media only screen and (max-width: 560px) {
+min-width: 300px;
+}
     img {
         display: inline-block;
         margin-right: 17px;

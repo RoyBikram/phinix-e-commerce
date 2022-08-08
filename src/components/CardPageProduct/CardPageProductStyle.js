@@ -1,30 +1,40 @@
-import styled from 'styled-components'
-import {Variables} from '../../variables/variables'
+import styled from 'styled-components';
+import { Variables } from '../../variables/variables';
 
 export const CardPageProductContainer = styled.div`
-height: 246px;
-width: 100%;
-max-width: 630px;
-border-radius: 24px;
-background-color: ${Variables.BackgroundGray};
-display: flex;
-padding: 15px;
-column-gap: 4%;
-.RightSide {
-    width: 49%;
-    height: 100%;
-    background-color: white;
-    border-radius: 12px;
-    overflow: hidden;
-    padding: 15px;
-}
-.LeftSide {
-    width: 47%;
+    height: 246px;
+    width: 100%;
+    max-width: 630px;
+    border-radius: 24px;
+    background-color: ${Variables.BackgroundGray};
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    .DetailsContainer {
-        .Title {
+    padding: 15px;
+    column-gap: 4%;
+    @media only screen and (max-width: 800px) {
+        height: 210px;
+    }
+    @media only screen and (max-width: 400px) {
+    height: 180px;
+    }
+    .RightSide {
+        width: 49%;
+        height: 100%;
+        background-color: white;
+        border-radius: 12px;
+        overflow: hidden;
+        padding: 15px;
+        @media only screen and (max-width: 400px) {
+            width: 39%;
+        }
+
+    }
+    .LeftSide {
+        width: 47%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .DetailsContainer {
+            .Title {
                 margin-top: 10px;
                 font-size: ${Variables.Title_2};
                 line-height: ${Variables.Title_2};
@@ -64,21 +74,36 @@ column-gap: 4%;
                     margin-left: 3px;
                 }
             }
-    }
-    .Controller {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
-        padding: 0px 10px;
-        .Quantity {
-            padding: 12px 25px 10px 25px;
-            border-radius: 7px;
-            background-color: white;
+        }
+        .Controller {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 0px 10px;
+            .Quantity {
+                padding: 12px 25px 10px 25px;
+                border-radius: 7px;
+                background-color: white;
+            }
+        }
+        @media only screen and (max-width: 400px) {
+            width: 57%;
+            .DetailsContainer {
+                .Title {
+                    font-size: 18px;
+                    margin-top: 5px;
+                }
+            }
+            .Controller {
+                padding: 0px;
+                .Quantity {
+                    padding: 12px 10px 10px 10px;
+                }
+            }
         }
     }
-}
-`
+`;
 
 export const Thumbnail = styled.div`
     background-image: url(${(props) => props.url});
