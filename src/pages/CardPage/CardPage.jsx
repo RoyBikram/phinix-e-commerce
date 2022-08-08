@@ -65,7 +65,7 @@ export default function CardPage() {
                                         );
                                     })}
                                 </ProductListContainer>
-                                <PriceDetailsCard
+                                <PriceDetailsCard classname = 'PriceDetailsCard'
                                     CardValue={CardValue}
                                     HandelButtonClick={HandelPlaceOrderClick}
                                     ButtonLabel={'Placed Order'}

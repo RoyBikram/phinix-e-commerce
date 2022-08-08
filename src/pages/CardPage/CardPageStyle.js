@@ -8,7 +8,7 @@ export const MainContainer = styled.div`
     display: flex;
     gap: 25px;
     @media only screen and (max-width: 800px) {
-        flex-direction: column-reverse;
+        flex-direction: column;
         align-items: center;
     }
 `;

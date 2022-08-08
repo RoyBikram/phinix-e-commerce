@@ -15,11 +15,11 @@ export const OrderSummaryPageContainer = styled.div`
             justify-content: space-evenly;
         }
         @media only screen and (max-width: 900px) {
-            grid-template-areas: 'PriceSummaryContainer AddressCardContainer' 'OrderProductCard OrderProductCard';
+            grid-template-areas:'OrderProductCard OrderProductCard' 'PriceSummaryContainer AddressCardContainer' ;
         }
         @media only screen and (max-width: 600px) {
             display: flex;
-            flex-direction: column-reverse;
+            flex-direction: column;
             align-items: center;
         }
         .OrderProductCard {
