@@ -36,6 +36,7 @@ import {
 import OrderSummaryPage from './pages/OrderSummaryPage/OrderSummaryPage';
 import PreviousOrderPage from './pages/PreviousOrderPage/PreviousOrderPage';
 import { async } from '@firebase/util';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
     const dispatch = useDispatch();
@@ -143,6 +144,7 @@ function App() {
         <ThemeProvider theme={theme}>
             <div className='App'>
                 <NavBar></NavBar>
+                    <ScrollToTop/>
                 <Routes>
                     <Route path='/' element={<HomePage />}></Route>
                     <Route path='/auth' element={<AuthPage />}>

@@ -62,9 +62,18 @@ export default function NavBar() {
                     </NavLinkLeft>
                     <NavLinkRight>
                         {!user ? (
-                            <>
+                            <Box
+                                sx={{
+                                    display: {
+                                        xs: 'none',
+                                        md: 'inline-block',
+                                    },
+                                }}
+                            >
                                 <NavLink
-                                    style={{ textDecoration: 'none' }}
+                                    style={{
+                                        textDecoration: 'none',
+                                    }}
                                     to='/auth/login'
                                 >
                                     <NavItem>Login</NavItem>
@@ -76,7 +85,7 @@ export default function NavBar() {
                                 >
                                     <NavItem>Sign Up</NavItem>
                                 </NavLink>
-                            </>
+                            </Box>
                         ) : (
                             <Button
                                 onClick={HandelLogoutButtonClick}
@@ -135,8 +144,9 @@ export default function NavBar() {
                             sx={{
                                 display: {
                                     xs: 'flex',
-                                    md:'none'
-                            }}}
+                                    md: 'none',
+                                },
+                            }}
                         >
                             <MenuRoundedIcon />
                         </IconButton>
@@ -149,17 +159,66 @@ export default function NavBar() {
                                 'aria-labelledby': 'basic-button',
                             }}
                         >
-                            <MenuItem sx={{px:'50px'}} onClick={handleClose}>
-                                <NavLink  to='/'>
+                            <MenuItem sx={{ px: '50px', justifyContent:'center' }} onClick={handleClose}>
+                                <NavLink to='/'>
                                     <NavItem>Home</NavItem>
                                 </NavLink>
                             </MenuItem>
-                            <Divider />
-                            <MenuItem sx={{px:'50px'}} onClick={handleClose}>
+                            <Divider sx={{my:'0px !important'}} />
+                            <MenuItem sx={{ px: '50px', justifyContent:'center' }} onClick={handleClose}>
                                 <NavLink to='/my_order'>
                                     <NavItem>Orders</NavItem>
                                 </NavLink>
                             </MenuItem>
+                            <Divider sx={{my:'0px !important'}} />
+
+                            {!user ? (
+                                <>
+                                    <MenuItem
+                                        sx={{ px: '50px', justifyContent:'center' }}
+                                        onClick={handleClose}
+                                    >
+                                        <NavLink
+                                            style={{ textDecoration: 'none' }}
+                                            to='/auth/login'
+                                        >
+                                            <NavItem>Login</NavItem>
+                                        </NavLink>
+                                    </MenuItem>
+                                    <Divider sx={{my:'0px !important'}} />
+
+                                    <MenuItem
+                                        sx={{ px: '50px', justifyContent:'center' }}
+                                        onClick={handleClose}
+                                    >
+                                        <NavLink
+                                            style={{ textDecoration: 'none' }}
+                                            to='/auth/signup'
+                                        >
+                                            <NavItem>Sign Up</NavItem>
+                                        </NavLink>
+                                    </MenuItem>
+                                </>
+                            ) : (
+                                <MenuItem
+                                    sx={{ px: '50px', justifyContent:'center' }}
+                                    onClick={handleClose}
+                                >
+                                    <Button
+                                        onClick={HandelLogoutButtonClick}
+                                        sx={{
+                                            padding: '7px 14px',
+                                            boxShadow: 'none',
+                                            ':hover': {
+                                                boxShadow: 'none',
+                                            },
+                                        }}
+                                        variant='text'
+                                    >
+                                        <NavItem>LogOut</NavItem>
+                                    </Button>
+                                </MenuItem>
+                            )}
                         </Menu>
                     </NavLinkRight>
                 </NavLinkContainer>
